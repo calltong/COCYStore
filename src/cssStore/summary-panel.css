@@ -1,0 +1,40 @@
+.panel-status {
+	border-color: #454545;
+	background-color: #FEFBFD;
+}
+
+.panel-status > .panel-heading {
+	color: white;
+	background-color: #454545;
+}
+
+.panel-order {
+	border-color: #454545;
+	background-color: #FEFBFD;
+}
+
+.panel-order > .panel-heading {
+	color: white;
+	background-color: #454545;
+}
+
+.panel-order > .panel-footer {
+	height: 50px;
+	color: white;
+	background-color: #454545;
+}
+
+.panel-customer {
+	border-color: #454545;
+}
+
+.panel-customer > .panel-heading {
+  color: white;
+  background-color: #454545;
+}
+
+.panel-customer > .panel-footer {
+	height: 50px;
+	color: white;
+	background-color: #454545;
+}

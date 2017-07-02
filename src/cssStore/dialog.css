@@ -1,0 +1,23 @@
+
+.order-dialog {
+	margin-right: 10px;
+	float: right;
+	height: 100%;
+	min-width: 200px;
+}
+
+.order-dialog > .modal-content {
+	height: 100px;
+}
+
+@media screen and (max-width: 768px) {
+	.order-dialog {
+	   min-width: 90%;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	.order-dialog {
+	   min-width: 95%;
+	}
+}

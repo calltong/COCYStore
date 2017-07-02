@@ -1,0 +1,131 @@
+.product-list {
+  background-color: white;
+  padding: 10px;
+}
+
+.product-list-item {
+  border: 1px solid #6D6D6D;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.product-list-item > a > img {
+  height: 365px !important;
+  width: 100% !important;
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.product-list-item > a > .name {
+  color: black;
+  font-size: 14px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.product-list-item > .price {
+  font-size: 15px;
+}
+
+.product-list-item > .price > span {
+  font-size: 15px;
+  color: red;
+}
+
+.product-size {
+  font-size: 12px;
+  margin-right: 2px;
+  margin-left: 2px;
+}
+
+.product-list-row {
+  margin-left: -5px;
+  margin-right:-5px;
+}
+
+.product-list-col {
+  padding-right: 1%;
+  padding-left: 1%;
+}
+
+.btn-view-more {
+  margin: 0 auto;
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+  width: 25%;
+}
+
+@media screen and (max-width: 1024px) {
+  .product-list-item > a > img {
+    height: 305px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .product-list-item > a > img {
+    height: 332px !important;
+  }
+
+  .btn-view-more {
+    width: 40%
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .product-list-item {
+    margin-bottom: 5px;
+    padding-bottom: 8px;
+    min-height: 380px;
+  }
+
+  .product-list-item > a > img {
+    height: 268px !important;
+  }
+
+  .product-list-item > .name {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .product-list-item > .price {
+    font-size: 14px;
+  }
+
+  .product-list-item > .price > span {
+    font-size: 14px;
+  }
+
+  .product-list-col {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .btn-view-more {
+    width: 50%
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .product-list-item {
+    min-height: 360px;
+  }
+
+  .product-list-item > a > img {
+    height: 232px !important;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .product-list-item {
+    min-height: 320px;
+  }
+
+  .product-list-item > a > img {
+    height: 194px !important;
+  }
+}

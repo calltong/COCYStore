@@ -1,0 +1,65 @@
+.footer {
+	color: white;
+	background-color: #292c2f;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+
+	padding: 30px 90px;
+	margin-top: 20px;
+}
+
+.footer-company-name {
+  font-size: 22px;
+}
+
+.footer-company-about {
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.footer-connent {
+  font-size: 15px;
+}
+
+.footer-connent > a {
+  color: white;
+}
+
+.footer-connent > a > i {
+  font-size: 20px;
+	margin-right: 5px;
+}
+
+.footer-connent > a > span {
+  font-size: 20px;
+	margin-right: 5px;
+}
+
+.footer-menu {
+  font-size: 14px;
+}
+
+.footer-menu > a {
+  color: white;
+}
+
+.footer-section {
+
+}
+
+@media screen and (max-width: 768px) {
+  .footer {
+  	padding: 20px 40px;
+  }
+  .footer-section {
+    margin-top: 25px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .footer-section {
+    margin-bottom: 25px;
+  }
+}

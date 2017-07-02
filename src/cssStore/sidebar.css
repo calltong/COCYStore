@@ -1,0 +1,23 @@
+
+.sidebar-nav {
+    margin-top: 5px;
+    position: absolute;
+    width: 180px;
+    list-style: none;
+    background-color: grey;
+}
+
+.sidebar-nav li {
+    text-indent: 5px;
+    line-height: 30px;
+}
+
+.sidebar-nav li a {
+  display: block;
+  text-decoration: none;
+  color: white;
+}
+
+.sidebar-nav li a:hover {
+  color: pink;
+}

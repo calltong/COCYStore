@@ -1,0 +1,37 @@
+.navbar-fixed-top {
+  height: 50px;
+}
+
+.navbar-header {
+  background-color: #FCECED;
+}
+.navbar-header .navbar-brand {
+  color: black;
+}
+
+.navbar-header .navbar-nav > li > a {
+  background-color: inherit;
+  color: #555655;
+}
+
+.navbar-header .navbar-nav > li > a:hover {
+  color: black;
+}
+
+.navbar-toggle .icon-bar {
+  background-color: black;
+}
+
+.navbar-toggle {
+  border: 1px solid black;
+}
+
+.nav {
+    background-color: #FCECED;
+}
+
+@media (max-width: 400px) {
+  .navbar-fixed-top {
+    margin-right: 0;
+  }
+}

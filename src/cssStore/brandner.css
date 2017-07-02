@@ -1,0 +1,38 @@
+.brand-section {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: white;
+  border-radius: 6px;
+}
+
+.brand-header {
+  text-align: center;
+	font-size: 60px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  padding: 15px;
+}
+
+.brand-sub {
+  text-align: center;
+	font-size: 18px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 425px) {
+  .brand-section {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .brand-header {
+  	font-size: 40px;
+    padding: 10px;
+  }
+}

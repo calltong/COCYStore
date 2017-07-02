@@ -1,0 +1,128 @@
+.btn-fullsize {
+	width: 100%;
+	height: 100%;
+}
+
+.btn-ok {
+  color: black;
+  background-color: #C2D5B8;
+  border-color: #0F0F0C;
+}
+
+.btn-ok:hover {
+  color: white;
+}
+
+.btn-facebook {
+  color: black;
+  background-color: #B8EFF2;
+  border-color: #0F0F0C;
+}
+
+.btn-facebook:hover {
+  color: white;
+}
+
+.btn-line {
+  color: black;
+  background-color: #F0F9E1;
+  border-color: #0F0F0C;
+}
+
+.btn-line:hover {
+  color: white;
+}
+
+.btn-normal {
+  color: black;
+  background-color: #E8E7E7;
+  border-color: #0F0F0C;
+}
+
+.btn-normal:hover {
+  color: white;
+}
+
+.btn-normal-selected {
+  color: black;
+  background-color: #F0F9E1;
+  border-color: #0F0F0C;
+}
+
+.btn-normal-selected:hover {
+  color: white;
+}
+
+.btn-remove {
+	color: black;
+  background-color: #F1A5A5;
+  border-color: #0F0F0C;
+}
+
+.btn-remove:hover {
+	border-color: black;
+}
+
+.btn-continues {
+  width: 100px;
+  color: black;
+  background-color: #FCF3F9;
+  border-color: #0F0F0C;
+}
+
+.btn-continues:hover {
+  color: white;
+	border-color: black;
+}
+
+.btn-size {
+  color: black;
+  background-color: white;
+  border-color: #ccc;
+}
+
+.btn-size:focus, .btn-size:hover {
+  color: black;
+	border-color: black;
+}
+
+.btn-size:disabled {
+  color: #DC5454;
+  background-color: #C4C3C3;
+}
+
+.btn-size-selected {
+  color: red;
+  background-color: #FCF3F9;
+  border-color: #0F0F0C;
+}
+
+.btn-size-selected:focus, .btn-size-selected:hover {
+  color: red;
+}
+
+.btn-bag {
+  color: black;
+  background-color: #FCF3F9;
+  border-color: #0F0F0C;
+}
+
+.btn-bag:focus, .btn-bag:hover {
+	border-color: black;
+}
+
+.btn-copy {
+  color: white;
+	padding: 0px;
+  background-color: transparent;
+}
+
+.btn-copy:hover {
+  color: #8CF57C;
+}
+
+@media (max-width: 800px) {
+  .btn-continues {
+    width: 100%;
+  }
+}
