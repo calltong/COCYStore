@@ -1,6 +1,6 @@
 .brand-section {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 60px;
+  padding-bottom: 40px;
   background-color: white;
   border-radius: 6px;
 }
@@ -23,6 +23,13 @@
 	font-weight: 500;
 	line-height: 26.4px;
   margin-top: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .brand-section {
+    padding-top: 40px;
+    padding-bottom: 30px;
+  }
 }
 
 @media screen and (max-width: 425px) {

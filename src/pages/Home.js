@@ -7,9 +7,9 @@ import {manager} from '../utility/Manager';
 import SlideSection from './component/SlideSection';
 import ProductSection from './component/ProductSection';
 import ModernSection from './component/ModernSection';
-import BlockSection from './component/BlockSection';
+import BlockContent from './contents/BlockContent';
 import CategorySection from './component/CategorySection';
-import Brandner from './component/Brandner';
+import BrandContent from './contents/BrandContent';
 
 export class Home extends ReducerBase {
   componentDidMount() {
@@ -19,25 +19,34 @@ export class Home extends ReducerBase {
 
   render() {
     let main = store.getState().main;
-
-    let index = 0;
-    let list = main.content.content_list.map(item => {
-      if (item.type === 'slide') {
-        return ( <SlideSection key={index++} content={item}/> );
-      } else if (item.type === 'modern') {
-        return ( <ModernSection key={index++} content={item}/> );
-      } else if (item.type === 'block') {
-        return ( <BlockSection key={index++} content={item}/> );
-      } else if (item.type === 'category') {
-        return ( <CategorySection key={index++} content={item}/> );
-      } else {
-        return ( <ProductSection key={index++} content={item}/> );
+    let list = main.content.content_list.map((item, index) => {
+      console.log('item:', item);
+      switch (item.type) {
+        case 'brand':
+          return (<BrandContent key={index} content={item}/>);
+          break;
+        case 'slide':
+          return (<SlideSection key={index} content={item}/>);
+          break;
+        case 'modern':
+          return (<ModernSection key={index} content={item}/>);
+          break;
+        case 'block':
+          return (<BlockContent key={index} content={item}/>);
+          break;
+        case 'category':
+          return (<CategorySection key={index} content={item}/>);
+          break;
+        case 'product':
+          return (<ProductSection key={index} content={item}/>);
+          break;
+        default:
+          return (<div key={index}/>);
       }
 
     });
     return (
       <div>
-        <Brandner content={main.content}/>
         {list}
       </div>
     );
