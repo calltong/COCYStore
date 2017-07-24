@@ -25,6 +25,7 @@ ReactDOM.render((
       <Route path="/" component={StoreApp}>
          <IndexRoute component={Home} />
          <Route path="home" component={Home} />
+         <Route path="sample/:page" component={Home} />
          <Route path="store" component={OurStore} />
          <Route path="howorder" component={HowOrder} />
          <Route path="account" component={MyAccount} />
