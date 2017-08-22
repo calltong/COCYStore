@@ -19,11 +19,11 @@
 }
 
 .carousel-indicators .active {
-    width: 14px;
-    height: 14px;
-    margin: 4px;
-    background-color: white;
-    border-color: black;
+  width: 14px;
+  height: 14px;
+  margin: 4px;
+  background-color: white;
+  border-color: black;
 }
 
 .carousel-indicators > li {
@@ -40,8 +40,8 @@
 
 @media screen and (max-width: 425px) {
   .carousel-indicators .active {
-      width: 12px;
-      height: 12px;
+    width: 12px;
+    height: 12px;
   }
 
   .carousel-indicators > li {

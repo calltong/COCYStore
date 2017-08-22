@@ -10,9 +10,9 @@ class Display extends React.Component {
   render() {
     let data = this.props.data;
     return (
-      <div className="modern-item">
+      <div className="col3-content-item">
         <Link onClick={this.onGotoPage.bind(this, data.value)}>
-          <img src={data.preview} role="presentation" className="modern-img" />
+          <img src={data.preview} role="presentation" className="col3-content-img" />
         </Link>
       </div>
     );
@@ -33,12 +33,12 @@ export class Col3Content extends React.Component {
     });
 
     return (
-      <div className="modern-section">
+      <div className="col3-content">
         <div className="header">
-          {content.data.name}
+          {content.data.title}
         </div>
         <div className="detail">
-          {content.data.detail}
+          {content.data.description}
         </div>
 
         <div className="body">

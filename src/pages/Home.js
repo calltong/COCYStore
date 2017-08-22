@@ -8,16 +8,17 @@ import Builder from './content/Builder';
 
 export class Home extends ReducerBase {
   componentDidMount() {
+    actions.page.getHome();
     actions.tracking.view();
     manager.SetOnTop();
   }
 
   render() {
-    let main = store.getState().main;
-    let list = main.content.content_list;
+    let doc = store.getState().page.home;
+    let list = doc.data.list !== undefined ? doc.data.list : [];
     return (
       <div>
-        <Builder list={main.content.content_list} />
+        <Builder list={list} />
       </div>
     );
   }

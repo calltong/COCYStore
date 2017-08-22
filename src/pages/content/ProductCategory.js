@@ -1,13 +1,10 @@
 import React from 'react';
-import {Link} from 'react-router'
+import {Link} from 'react-router';
 import {browserHistory} from 'react-router';
-import {store} from '../../store';
 
-export class ProductList extends React.Component {
-
+export class ProductCategory extends React.Component {
   changeMenu(condition) {
     browserHistory.push('/products');
-    store.update('PRO_GET_PRODUCT_LIST', {index:1, condition: condition});
   }
 
   render() {
@@ -57,4 +54,4 @@ export class ProductList extends React.Component {
   }
 }
 
-export default ProductList;
+export default ProductCategory;

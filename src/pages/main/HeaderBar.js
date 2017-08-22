@@ -36,8 +36,7 @@ export class HeaderBar extends ReducerBase {
   }
 
   render() {
-    let state = store.getState();
-    let menu = state.main.content.menu;
+    let doc = store.getState().page.menu;
     let index = 0;
     let list = menu.list.map(item => {
       return (

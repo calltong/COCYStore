@@ -1,32 +1,30 @@
 import React from 'react';
 
-import HeaderBar from './pages/main/HeaderBar';
-import Footer from './pages/main/Footer';
+//import HeaderBar from './pages/main/HeaderBar';
+//import Footer from './pages/main/Footer';
+import Header from './pages/menu/Menu';
+import Footer from './pages/menu/Footer';
+import {ReducerBase} from './pages/ReducerBase';
 import {actions} from './actions/Action';
 import {manager} from './utility/Manager';
+import {store} from './store';
 
-class StoreApp extends React.Component {
-
+class StoreApp extends ReducerBase {
   componentDidMount() {
     //store.update('MAIN_LOAD_FBSDK');
-    let page = this.props.params.page;
-    console.log('page:', page);
     manager.initial();
-    if (page) {
-      actions.main.getPageItem(page);
-    } else {
-      actions.main.getPageActive();
-    }
+    actions.page.getMenu();
   }
 
   render() {
+    let doc = store.getState().page.menu;
     return (
       <div id="wrapper">
-        <HeaderBar/>
+        <Header content={doc.data.menu} />
         <div id="page-wrapper">
           {this.props.children}
         </div>
-        <Footer/>
+        <Footer content={doc.data.footer} />
       </div>
     );
   }

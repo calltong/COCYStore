@@ -5,7 +5,7 @@
   border-radius: 6px;
 }
 
-.brand-header {
+.brand-title {
   text-align: center;
 	font-size: 60px;
 	font-style: normal;
@@ -15,7 +15,7 @@
   padding: 15px;
 }
 
-.brand-sub {
+.brand-description {
   text-align: center;
 	font-size: 18px;
 	font-style: normal;
@@ -38,7 +38,7 @@
     padding-bottom: 20px;
   }
 
-  .brand-header {
+  .brand-title {
   	font-size: 40px;
     padding: 10px;
   }

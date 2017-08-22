@@ -1,9 +1,7 @@
 import React from 'react';
 //import {Link} from 'react-router'
 
-import {ReducerBase} from '../ReducerBase';
-
-export class SlideSection extends ReducerBase {
+export class SlideSection extends React.Component {
   render() {
     let index = 0;
     let content = this.props.content;

@@ -6,8 +6,9 @@ import StoreApp from './StoreApp';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import Home from './pages/Home';
 
-import OurStore from './pages/help/OurStore';
-import HowOrder from './pages/help/HowOrder';
+import AboutUs from './pages/help/AboutUs';
+import HowToBuy from './pages/help/HowToBuy';
+import OrderCondition from './pages/help/OrderCondition';
 import MyAccount from './pages/main/MyAccount';
 
 import ProductList from './pages/product/ProductList';
@@ -25,9 +26,9 @@ ReactDOM.render((
       <Route path="/" component={StoreApp}>
          <IndexRoute component={Home} />
          <Route path="home" component={Home} />
-         <Route path="sample/:page" component={Home} />
-         <Route path="store" component={OurStore} />
-         <Route path="howorder" component={HowOrder} />
+         <Route path="aboutus" component={AboutUs} />
+         <Route path="condition" component={OrderCondition} />
+         <Route path="howbuy" component={HowToBuy} />
          <Route path="account" component={MyAccount} />
 
          <Route path="products" component={ProductList} />

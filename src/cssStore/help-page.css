@@ -1,12 +1,14 @@
-.help-page {
+.tobuy-page {
   padding: 50px;
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
 
-.help-step-order {
+.tobuy-step {
   text-align: center;
 }
 
-.help-step-order > span {
+.tobuy-step > span {
   color: white;
   background-color: grey;
   padding: 15px 20px;
@@ -14,54 +16,67 @@
   border-radius: 4px;
 }
 
-.help-step-order > p {
+.tobuy-step > p {
   margin-top: 25px;
   margin-bottom: 40px;
   font-size: 18px;
 }
 
-.store-page {
+.aboutus-page {
   padding-top: 15px;
   padding-left: 100px;
   padding-right: 100px;
 }
 
-.store-map {
+.aboutus-map {
   max-height: 400px;
+  margin-right: 20px;
   float: right;
 }
 
+.condition-page {
+  padding: 50px;
+  margin-left: 60px;
+  margin-bottom: 80px;
+}
+
 @media screen and (max-width: 1024px) {
-  .store-page {
+  .aboutus-page {
     padding-left: 40px;
     padding-right: 40px;
   }
 }
 
 @media (max-width: 768px) {
-  .help-page {
+  .tobuy-page {
     padding: 20px;
   }
 
-  .store-map {
+  .aboutus-map {
     max-height: 300px;
   }
 }
 
 @media (max-width: 425px) {
-  .store-page {
+  .aboutus-page {
     padding-top: 10px;
     padding-left: 20px;
     padding-right: 20px;
   }
 
-  .store-map {
+  .aboutus-map {
     max-height: 140px;
+  }
+
+  .condition-page {
+    padding: 40px;
+    margin-left: 40px;
+    margin-bottom: 50px;
   }
 }
 
 @media (max-width: 375px) {
-  .store-map {
+  .aboutus-map {
     max-height: 110px;
   }
 }

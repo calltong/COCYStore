@@ -1,4 +1,4 @@
-.modern-section {
+.col3-content {
   margin-top: 4px;
   padding-top: 50px;
   padding-bottom: 20px;
@@ -9,75 +9,64 @@
   border-radius: 6px;
 }
 
-.modern-section > .header {
+.col3-content > .header {
   color: black;
   font-size: 35px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-.modern-section > .detail {
+.col3-content > .detail {
   color: #5D5F5D;
   font-size: 18px;
   margin-bottom: 30px;
 }
 
-.modern-item {
+.col3-content {
   margin-bottom: 5px;
 }
 
-.modern-img {
-  height: 468px !important;
-  width: 360px !important;
+.col3-content-img {
+  width: 90% !important;
   border-radius: 8px;
 }
 
+.col3-content-item {
+  margin-bottom: 5px;
+}
+
 @media screen and (max-width: 1024px) {
-  .modern-img {
-    height: 377px !important;
-    width: 290px !important;
-  }
+
 }
 
 @media screen and (max-width: 768px) {
-  .modern-section {
+  .col3-content {
     padding-top: 20px;
     padding-bottom: 10px;
   }
 
-  .modern-img {
-    height: 286px !important;
-    width: 220px !important;
+  .col3-content-img {
+    width: 90% !important;
   }
 }
 
 @media screen and (max-width: 425px) {
-  .modern-img {
-    height: 156px !important;
-    width: 120px !important;
-  }
 
-  .modern-section > .header {
+  .col3-content > .header {
     font-size: 28px;
     margin-bottom: 20px;
   }
 
-  .modern-section > .detail {
+  .col3-content > .detail {
     font-size: 15px;
     margin-bottom: 20px;
   }
 }
 
 @media screen and (max-width: 375px) {
-  .modern-img {
-    height: 135px !important;
-    width: 105px !important;
-  }
+
 }
 
 @media screen and (max-width: 320px) {
-  .modern-img {
-    height: 117px !important;
-    width: 90px !important;
-  }
+
 }

@@ -1,6 +1,6 @@
 .footer {
-	color: white;
-	background-color: #292c2f;
+	color: black;
+	background-color: white;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 	box-sizing: border-box;
 	width: 100%;
@@ -8,45 +8,26 @@
 
 	padding: 30px 90px;
 	margin-top: 20px;
+	border-radius: 2px;
 }
 
-.footer-company-name {
-  font-size: 22px;
+.footer-title {
+  font-size: 20px;
 }
 
-.footer-company-about {
-  font-size: 12px;
+.footer-description {
+  font-size: 14px;
   margin-top: 10px;
 }
 
-.footer-connent {
-  font-size: 15px;
-}
-
-.footer-connent > a {
-  color: white;
-}
-
-.footer-connent > a > i {
-  font-size: 20px;
-	margin-right: 5px;
-}
-
-.footer-connent > a > span {
-  font-size: 20px;
-	margin-right: 5px;
+.footer-icon {
+  font-size: 18px;
+	padding: 2px;
+	margin-right: 4px;
 }
 
 .footer-menu {
-  font-size: 14px;
-}
-
-.footer-menu > a {
-  color: white;
-}
-
-.footer-section {
-
+  font-size: 15px;
 }
 
 @media screen and (max-width: 768px) {

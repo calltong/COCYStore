@@ -74,15 +74,17 @@ export class CheckoutOrder extends ReducerBase {
     let order = state.order.data;
     let menu = function(status, me) {
       if (status === true) {
-        return (<UserLogin
-          data={customer.data}
-          checkout={me.checkout.bind(this)}
-          />);
+        return (
+          <UserLogin
+            data={customer.data}
+            checkout={me.checkout.bind(this)} />
+          );
       } else {
-        return (<UserNone
-          checkoutEmail={me.checkout.bind(this)}
-          checkoutGuest={me.checkoutByGuest.bind(this)}
-          />);
+        return (
+          <UserNone
+            checkoutEmail={me.checkout.bind(this)}
+            checkoutGuest={me.checkoutByGuest.bind(this)} />
+          );
       }
 
     }(customer.login.status, this);

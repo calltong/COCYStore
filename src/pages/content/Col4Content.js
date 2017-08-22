@@ -5,10 +5,10 @@ class Display extends React.Component {
   render() {
     let data = this.props.data;
     return (
-      <div className="category-item">
+      <div className="col4-content-item">
         <Link to={`/products?type=${data.value}`}>
-          <img src={data.preview} role="presentation" className="category-img" />
-          <p className="category-text">{data.name}</p>
+          <img src={data.preview} role="presentation" className="col4-content-img" />
+          <p className="col4-content-text">{data.name}</p>
         </Link>
       </div>
     );
@@ -29,9 +29,12 @@ export class Col4Content extends React.Component {
     });
 
     return (
-      <div className="category-section">
+      <div className="col4-content">
         <div className="header">
-          {content.data.name}
+          {content.data.title}
+        </div>
+        <div className="detail">
+          {content.data.description}
         </div>
         <div className="body">
           <div className="row">

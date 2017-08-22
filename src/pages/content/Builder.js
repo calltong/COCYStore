@@ -5,7 +5,7 @@ import SlideContent from './SlideContent';
 import Col3Content from './Col3Content';
 import BlockContent from './BlockContent';
 import Col4Content from './Col4Content';
-import ProductList from './ProductList';
+import ProductCategory from './ProductCategory';
 
 export class Builder extends React.Component {
 
@@ -14,22 +14,16 @@ export class Builder extends React.Component {
       switch (item.type) {
         case 'brand':
           return (<BrandContent key={index} content={item}/>);
-          break;
-        case 'slide':
+        case 'slide-1':
           return (<SlideContent key={index} content={item}/>);
-          break;
         case 'col-3':
           return (<Col3Content key={index} content={item}/>);
-          break;
-        case 'block':
-          return (<BlockContent key={index} content={item}/>);
-          break;
         case 'col-4':
           return (<Col4Content key={index} content={item}/>);
-          break;
+        case 'block-6':
+          return (<BlockContent key={index} content={item}/>);    
         case 'product':
-          return (<ProductList key={index} content={item}/>);
-          break;
+          return (<ProductCategory key={index} content={item}/>);
         default:
           return (<div key={index}/>);
       }
