@@ -25,11 +25,10 @@ export class OrderTracking extends ReducerBase {
         </div>
 
         <div className="col-xs-12 col-sm-8 col-md-8">
-          <OrderPanel
-            id={tracking._id}
-            data={tracking}/>
-          <OrderAddress
-            data={tracking.shipping}/>
+          <h4>Order Code: {tracking._id}</h4>
+          <br />
+          <OrderPanel disable data={tracking}/>
+          <OrderAddress data={tracking.shipping}/>
         </div>
       </div>
 

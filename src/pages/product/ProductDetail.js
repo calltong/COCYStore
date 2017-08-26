@@ -14,8 +14,8 @@ class ProductDetail extends Component {
     } else {
       price = (<h4 className="product-price">ราคา: &#3647;{data.price}</h4>);
     }
-    let index = 0;
-    let sizeList = data.stock_list.map(item => {
+
+    let sizeList = data.stock_list.map((item, index) => {
       let active = 'btn btn-size';
       if (detail.size) {
         if (detail.size._id === item.size._id) {
@@ -24,7 +24,7 @@ class ProductDetail extends Component {
       }
       return (
         <button
-          key={index++}
+          key={index}
           className={active}
           type="button"
           disabled={item.quantity===0}
@@ -33,7 +33,7 @@ class ProductDetail extends Component {
         </button>
       );
     });
-    index = 0;
+    let index = 0;
     let info_val = '';
     let info_list = '';
     if (data.information) {
@@ -77,7 +77,7 @@ class ProductDetail extends Component {
             <div className="input-group">
 
               <div className="input-group-btn">
-                <button type="button" className="btn btn-bag" onClick={this.props.onDownQuantity}>
+                <button type="button" className="btn btn-normal" onClick={this.props.onDownQuantity}>
                   <i className="fa fa-minus" style={{marginRight: 2, marginLeft: 2}}/>
                 </button>
               </div>
@@ -87,7 +87,7 @@ class ProductDetail extends Component {
               </div>
 
               <div className="input-group-btn">
-                <button type="button" className="btn btn-bag" onClick={this.props.onUpQuantity}>
+                <button type="button" className="btn btn-normal" onClick={this.props.onUpQuantity}>
                   <i className="fa fa-plus" style={{marginRight: 2}}/>
                 </button>
               </div>
@@ -96,7 +96,7 @@ class ProductDetail extends Component {
           </div>
 
           <div className="col-xs-5 col-sm-5 col-md-4">
-            <button type="button" className="btn btn-bag" style={{width:'100%'}} onClick={this.props.onAddtoBag}>
+            <button type="button" className="btn btn-normal" style={{width:'100%'}} onClick={this.props.onAddtoBag}>
               ใส่ตะกร้า
             </button>
           </div>

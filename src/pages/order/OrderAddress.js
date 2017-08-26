@@ -4,7 +4,6 @@ export class OrderAddress extends React.Component {
 
   render() {
     let data = this.props.data;
-
     return (
       <div className="panel panel-order">
         <div className="panel-heading">

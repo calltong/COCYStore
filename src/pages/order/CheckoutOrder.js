@@ -72,6 +72,7 @@ export class CheckoutOrder extends ReducerBase {
     let state = store.getState();
     let customer = state.customer;
     let order = state.order.data;
+    /*
     let menu = function(status, me) {
       if (status === true) {
         return (
@@ -88,23 +89,18 @@ export class CheckoutOrder extends ReducerBase {
       }
 
     }(customer.login.status, this);
-
+    */
     return (
     <div className="container summary-form">
       <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-12">
+        <div className="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
           <OrderMenu status={'order'}/>
         </div>
       </div>
 
       <div className="row">
-        <div className="col-xs-12 col-sm-4 col-md-4">
-          {menu}
-        </div>
-        <div className="col-xs-12 col-sm-8 col-md-8">
-          <OrderPanel
-            id={order._id}
-            data={order}/>
+        <div className="col-xs-12 col-sm-8 col-md-8 col-md-offset-2">
+          <OrderPanel data={order}/>
         </div>
       </div>
 

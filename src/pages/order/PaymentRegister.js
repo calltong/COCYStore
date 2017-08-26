@@ -46,7 +46,7 @@ export class PaymentRegister extends React.Component {
     return (
       <div className="panel panel-customer">
         <div className="panel-heading">
-          Payment
+          ชำระเงิน
         </div>
         <div className="panel-body">
           <div className="row">

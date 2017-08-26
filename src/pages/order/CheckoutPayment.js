@@ -33,12 +33,12 @@ export class CheckoutPayment extends ReducerBase {
     return (
     <div className="container summary-form">
       <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-12">
+        <div className="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
           <OrderMenu status={'payment'} />
         </div>
       </div>
       <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-12">
+        <div className="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
           <PaymentRegister
             data={order}
             checkout={this.checkout.bind(this)}
@@ -47,8 +47,8 @@ export class CheckoutPayment extends ReducerBase {
       </div>
 
       <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-12">
-          <OrderPanel id={order._id} data={order} />
+        <div className="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+          <OrderPanel disable data={order} />
         </div>
       </div>
     </div>

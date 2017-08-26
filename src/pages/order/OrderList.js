@@ -57,12 +57,12 @@ export class OrderList extends React.Component {
         button = (
           <div className="row">
             <div style={{textAlign: 'center'}}>
-              <EnButton className="btn btn-bag btn-summary-size"
+              <EnButton className="btn btn-normal btn-summary-size"
                 onClick={this.onMinus.bind(this, index)}>
                 <i className="fa fa-minus"/>
               </EnButton>
 
-              <EnButton className="btn btn-bag btn-summary-size"
+              <EnButton className="btn btn-normal btn-summary-size"
                 onClick={this.onPlus.bind(this, index)}>
                 <i className="fa fa-plus"/>
               </EnButton>

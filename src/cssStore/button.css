@@ -5,8 +5,8 @@
 
 .btn-ok {
   color: black;
-  background-color: #C2D5B8;
-  border-color: #0F0F0C;
+  background-color: #EFFDE7;
+  border-color: #ccc;
 }
 
 .btn-ok:hover {
@@ -16,7 +16,7 @@
 .btn-facebook {
   color: black;
   background-color: #B8EFF2;
-  border-color: #0F0F0C;
+  border-color: #ccc;
 }
 
 .btn-facebook:hover {
@@ -26,7 +26,7 @@
 .btn-line {
   color: black;
   background-color: #F0F9E1;
-  border-color: #0F0F0C;
+  border-color: #ccc;
 }
 
 .btn-line:hover {
@@ -35,8 +35,8 @@
 
 .btn-normal {
   color: black;
-  background-color: #E8E7E7;
-  border-color: #0F0F0C;
+  background-color: white;
+  border-color: #ccc;
 }
 
 .btn-normal:hover {
@@ -46,7 +46,7 @@
 .btn-normal-selected {
   color: black;
   background-color: #F0F9E1;
-  border-color: #0F0F0C;
+  border-color: #ccc;
 }
 
 .btn-normal-selected:hover {
@@ -55,8 +55,8 @@
 
 .btn-remove {
 	color: black;
-  background-color: #F1A5A5;
-  border-color: #0F0F0C;
+  background-color: #F7B9B9;
+  border-color: #ccc;
 }
 
 .btn-remove:hover {
@@ -66,48 +66,11 @@
 .btn-continues {
   width: 100px;
   color: black;
-  background-color: #FCF3F9;
-  border-color: #0F0F0C;
-}
-
-.btn-continues:hover {
-  color: white;
-	border-color: black;
-}
-
-.btn-size {
-  color: black;
   background-color: white;
   border-color: #ccc;
 }
 
-.btn-size:focus, .btn-size:hover {
-  color: black;
-	border-color: black;
-}
-
-.btn-size:disabled {
-  color: #DC5454;
-  background-color: #C4C3C3;
-}
-
-.btn-size-selected {
-  color: red;
-  background-color: #FCF3F9;
-  border-color: #0F0F0C;
-}
-
-.btn-size-selected:focus, .btn-size-selected:hover {
-  color: red;
-}
-
-.btn-bag {
-  color: black;
-  background-color: #FCF3F9;
-  border-color: #0F0F0C;
-}
-
-.btn-bag:focus, .btn-bag:hover {
+.btn-continues:hover {
 	border-color: black;
 }
 

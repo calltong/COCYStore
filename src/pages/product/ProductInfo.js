@@ -135,7 +135,7 @@ export class ProductInfo extends ReducerBase {
         <hr/>
 
         <div style={{textAlign: 'center'}}>
-        <img className="product-info-img" src={sizetable} role="presentation" />
+          <img className="product-info-img" src={sizetable} role="presentation" />
         </div>
         <OrderUpdate data={order}/>
       </div>

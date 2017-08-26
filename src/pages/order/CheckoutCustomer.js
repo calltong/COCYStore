@@ -55,17 +55,12 @@ export class CheckoutCustomer extends ReducerBase {
     return (
     <div className="container summary-form">
       <div className="row">
-        <div className="col-xs-12 col-sm-12 col-md-12">
+        <div className="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
           <OrderMenu status={'customer'}/>
         </div>
       </div>
       <div className="row">
-        <div className="col-xs-12 col-sm-4 col-md-4">
-          <RegisterUser
-            message={customer.message}
-            data={customer.register_user}/>
-        </div>
-        <div className="col-xs-12 col-sm-8 col-md-8">
+        <div className="col-xs-12 col-sm-8 col-md-8 col-md-offset-2">
           <CustomerInfo
             checkout={this.checkout.bind(this)}
             backCheckout={this.backCheckout.bind(this)}
