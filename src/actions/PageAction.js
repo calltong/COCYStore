@@ -7,7 +7,7 @@ export class PageAction {
     let page = store.getState().page;
     if (page.menu._id === '') {
       let url = `${config.api.url}/page/menu/active`;
-      http.get(url, {}).done(response => {
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let data = response.body;
           store.update('PAGE_MENU', {data});
@@ -20,7 +20,7 @@ export class PageAction {
     let page = store.getState().page;
     if (page.home._id === '') {
       let url = `${config.api.url}/page/home/active`;
-      http.get(url, {}).done(response => {
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let data = response.body;
           store.update('PAGE_HOME', {data});
@@ -33,7 +33,7 @@ export class PageAction {
     let page = store.getState().page;
     if (page.how_buy._id === '') {
       let url = `${config.api.url}/page/how_to_buy/active`;
-      http.get(url, {}).done(response => {
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let data = response.body;
           store.update('PAGE_HOW_BUY', {data});
@@ -46,7 +46,7 @@ export class PageAction {
     let page = store.getState().page;
     if (page.order_condition._id === '') {
       let url = `${config.api.url}/page/order_condition/active`;
-      http.get(url, {}).done(response => {
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let data = response.body;
           store.update('PAGE_ORDER_CONDITION', {data});
@@ -59,7 +59,7 @@ export class PageAction {
     let page = store.getState().page;
     if (page.about_us._id === '') {
       let url = `${config.api.url}/page/about_us/active`;
-      http.get(url, {}).done(response => {
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let data = response.body;
           store.update('PAGE_ABOUT_US', {data});
@@ -72,7 +72,7 @@ export class PageAction {
     let page = store.getState().page;
     if (page.product._id === '') {
       let url = `${config.api.url}/page/product/active`;
-      http.get(url, {}).done(response => {
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let data = response.body;
           store.update('PAGE_PRODUCT', {data});
@@ -85,7 +85,7 @@ export class PageAction {
     let page = store.getState().page;
     if (page.product_list._id === '') {
       let url = `${config.api.url}/page/product_list/active`;
-      http.get(url, {}).done(response => {
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let data = response.body;
           store.update('PAGE_PRODUCT_LIST', {data});
@@ -94,14 +94,14 @@ export class PageAction {
     }
   }
 
-  getCheckout() {
+  getPayment() {
     let page = store.getState().page;
-    if (page.product._id === '') {
-      let url = `${config.api.url}/page/checkout/active`;
-      http.get(url, {}).done(response => {
+    if (page.payment._id === '') {
+      let url = `${config.api.url}/page/payment/active`;
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let data = response.body;
-          store.update('PAGE_CHECKOUT', {data});
+          store.update('PAGE_PAYMENT', {data});
         }
       });
     }

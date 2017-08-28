@@ -4,9 +4,8 @@ import {browserHistory} from 'react-router';
 import {cookiedb} from '../../utility/CookieStore';
 import {store} from '../../store';
 import {config} from '../../config';
-
 import {http} from '../../utility/http';
-//import {manager} from '../../utility/Manager';
+
 import {Reducer} from '../../redux-manager';
 let instance = {
   _id: '',
@@ -63,7 +62,7 @@ reducer.register('ORDER_GET_ITEM', (state, action) => {
   let {id} = action.params;
 
   let url = `${config.api.url}/order/${id}`;
-  http.get(url, {}).done(response => {
+  http.get(url, {authorization: true}).done(response => {
     if (response.statusCode === http.StatusOK) {
       let data = response.body;
       if (data._id) {
@@ -122,7 +121,7 @@ reducer.register('ORDER_SAVE', (state, action) => {
     let yy = date.getFullYear();
     json.order_date = `${dd}-${mm}-${yy}`;
     url = `${config.api.url}/order/createdb`;
-    http.post(url, {json}).done(response => {
+    http.post(url, {json, authorization: true}).done(response => {
       if (response.statusCode === http.StatusCreated) {
         let data = response.body;
         store.update('ORDER_SAVE_DATA', {data:data});
@@ -134,7 +133,7 @@ reducer.register('ORDER_SAVE', (state, action) => {
     });
   } else {
     url = `${config.api.url}/order/${json._id}/editdb`;
-    http.put(url, {json}).done(response => {
+    http.put(url, {json, authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         if (clear === true) {
           store.update('ORDER_CLEAR', {
@@ -284,7 +283,7 @@ reducer.register('ORDER_GET_TRACKING', (state, action) => {
   let {id} = action.params;
 
   let url = `${config.api.url}/order/${id}`;
-  http.get(url, {}).done(response => {
+  http.get(url, {authorization: true}).done(response => {
     if (response.statusCode === http.StatusOK) {
       let data = response.body;
       data.display_list = data.product_list;

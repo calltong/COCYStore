@@ -32,7 +32,7 @@ export class OrderPanel extends React.Component {
         <div className="panel-footer">
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-12">
-              <EnButton className="btn btn-continues pull-right" onClick={this.checkoutByGuest.bind(this)}>
+              <EnButton className="btn btn-normal pull-right" onClick={this.checkoutByGuest.bind(this)}>
                 ยืนยัน
               </EnButton>
             </div>

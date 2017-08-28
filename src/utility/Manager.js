@@ -11,7 +11,6 @@ import {client} from './client';
 class Manager {
   initial() {
     let data = cookiedb.loadData();
-    //console.log('cookie:', data);
     this.loadCustomer(data);
     this.loadOrder(data);
     /*
@@ -33,7 +32,7 @@ class Manager {
         store.update('ORDER_GET_ITEM', {id: data.order.id});
       } else if (data.order.list.length !== 0) {
         let url = `${config.api.url}/order/reword`;
-        http.post(url, {json: {product_list: data.order.list}}).done(response => {
+        http.post(url, {json: {product_list: data.order.list}, authorization: true}).done(response => {
           if (response.statusCode === http.StatusOK) {
             let cdata = response.body;
             store.update('ORDER_STORE_ORDER', {display: cdata, db: data.order.list});
@@ -57,7 +56,7 @@ class Manager {
         url = `${config.api.url}/customer/${browser}/browser`;
       }
 
-      http.get(url, {}).done(response => {
+      http.get(url, {authorization: true}).done(response => {
         if (response.statusCode === http.StatusOK) {
           let cdata = response.body;
           store.update('CUSTOMER_STORE', {data: cdata});

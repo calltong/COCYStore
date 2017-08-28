@@ -8,7 +8,6 @@ import {manager} from '../../utility/Manager';
 
 export class Menu extends ReducerBase {
   changeMenu(type, value) {
-    console.log(type, ':type:', value);
     if (type === 'category') {
       if (value === '') {
         browserHistory.push('/products');

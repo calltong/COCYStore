@@ -39,35 +39,6 @@ export class TrackingAction {
       nonInteraction: true,
     });
   }
-
-  /*
-  save() {
-    if (this.data.user._id !== '') {
-      let url = `${config.api.url}/trackuser/${this.data.user._id}/edit`;
-      http.put(url, {json: this.data.user}).done(response => {
-      });
-    }
-  }
-
-  createUser(customer_id, browser) {
-    let url = `${config.api.url}/trackuser/create`;
-    this.data.user = {
-      customer_id: customer_id,
-      browser: browser,
-      status_list: [{
-        status: 'open',
-        value: window.location.pathname,
-        updated_at: Date.now(),
-      }],
-    };
-
-    http.post(url, {json: this.data.user}).done(response => {
-      if (response.statusCode === http.StatusCreated) {
-        this.data.user = response.body;
-      }
-    });
-  }
-  */
 }
 
 export const action = new TrackingAction();

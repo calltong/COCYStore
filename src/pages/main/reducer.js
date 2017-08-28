@@ -1,5 +1,3 @@
-//import moment from 'moment';
-//import {browserHistory} from 'react-router';
 import {store} from '../../store';
 import {config} from '../../config';
 
@@ -54,7 +52,7 @@ reducer.register('MAIN_CLEAN_STATE', (state, action) => {
 
 reducer.register('MAIN_GET', (state, action) => {
   let url = `${config.api.url}/page/active`;
-  http.get(url, {}).done(response => {
+  http.get(url, {authorization: true}).done(response => {
     if (response.statusCode === http.StatusOK) {
       let data = response.body;
       store.update('MAIN_STORE', {data});
@@ -72,7 +70,7 @@ reducer.register('MAIN_STORE', (state, action) => {
 
 reducer.register('MAIN_GET_TYPE', (state, action) => {
   let url = `${config.api.url}/protype`;
-  http.get(url, {}).done(response => {
+  http.get(url, {authorization: true}).done(response => {
     if (response.statusCode === http.StatusOK) {
       let data = response.body;
       store.update('MAIN_STORE_TYPE', {data});

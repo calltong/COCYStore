@@ -1,5 +1,3 @@
-//import moment from 'moment';
-//import {browserHistory} from 'react-router';
 import _ from 'lodash';
 import {manager} from '../../utility/Manager';
 import {store} from '../../store';
@@ -60,7 +58,7 @@ reducer.register('CUSTOMER_CREATE', (state, action) => {
   data.type = 'guest';
   state.data = data;
   let url = `${config.api.url}/customer/create`;
-  http.post(url, {json: data}).done(response => {
+  http.post(url, {json: data, authorization: true}).done(response => {
     if (response.statusCode === http.StatusCreated) {
       let cdata = response.body;
       store.update('CUSTOMER_STORE', {data: cdata});
@@ -82,7 +80,7 @@ reducer.register('CUSTOMER_SAVE', (state, action) => {
   }
   let json = state.data;
   let url = `${config.api.url}/customer/${json._id}/edit`;
-  http.put(url, {json}).done(response => {
+  http.put(url, {json, authorization: true}).done(response => {
     if (response.statusCode !== http.StatusOK) {
       let msg = response.body;
       store.update('CUSTOMER_SET_MESSAGE', {data: msg});
@@ -94,7 +92,7 @@ reducer.register('CUSTOMER_SAVE', (state, action) => {
 reducer.register('CUSTOMER_GET_BY_ID', (state, action) => {
   let {id} = action.params;
   let url = `${config.api.url}/customer/${id}`;
-  http.get(url, {}).done(response => {
+  http.get(url, {authorization: true}).done(response => {
     if (response.statusCode === http.StatusOK) {
       let data = response.body;
       store.update('CUSTOMER_STORE', {data});
@@ -108,7 +106,7 @@ reducer.register('CUSTOMER_GET_BY_ID', (state, action) => {
 reducer.register('CUSTOMER_GET_BY_LINE', (state, action) => {
   let {id} = action.params;
   let url = `${config.api.url}/customer/${id}/line`;
-  http.get(url).done(response => {
+  http.get(url, {authorization: true}).done(response => {
     console.log('Code:', response.statusCode);
     console.log('Body:', response.body);
   });

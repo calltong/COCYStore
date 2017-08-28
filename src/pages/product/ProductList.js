@@ -77,8 +77,6 @@ export class ProductList extends ReducerBase {
   getData(type) {
     let product = store.getState().product;
     let condition = product.page.condition;
-    console.log('1 type:', condition.type);
-    console.log('2 type:', type);
     if (condition.type !== type) {
       actions.product.getList(type);
       manager.SetOnTop();

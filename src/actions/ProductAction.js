@@ -18,7 +18,7 @@ export class ProductAction {
     }
     store.update('PRO_SET_PAGE', {page: page});
 
-    http.get(url, {}).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         if (data) {
@@ -34,7 +34,7 @@ export class ProductAction {
 
   getItem(id) {
     let url = `${config.api.url}/product/${id}`;
-    http.get(url, {}).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         store.update('PRO_STORE_PRODUCT_ITEM', {data});
@@ -53,7 +53,7 @@ export class ProductAction {
       url += `&&type=${type}`;
     }
 
-    http.get(url, {}).done(response => {
+    http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         if (data) {

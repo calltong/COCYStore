@@ -64,7 +64,7 @@ export const reducer = new Reducer({
   order_condition: _.cloneDeep(instance),
   product: _.cloneDeep(instance),
   product_list: _.cloneDeep(instance),
-  checkout: _.cloneDeep(instance),
+  payment: _.cloneDeep(instance),
 });
 
 reducer.register('PAGE_MENU', (state, action) => {
@@ -113,9 +113,9 @@ reducer.register('PAGE_PRODUCT_LIST', (state, action) => {
   return state;
 });
 
-reducer.register('PAGE_CHECKOUT', (state, action) => {
+reducer.register('PAGE_PAYMENT', (state, action) => {
   let {data} = action.params;
-  state.checkout = data;
+  state.payment = data;
 
   return state;
 });

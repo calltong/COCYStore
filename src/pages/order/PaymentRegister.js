@@ -70,13 +70,13 @@ export class PaymentRegister extends React.Component {
         <div className="panel-footer">
           <div className="row">
             <div className="col-xs-6 col-sm-6 col-md-6">
-              <EnButton className="btn btn-continues pull-left" onClick={this.onBack.bind(this)}>
+              <EnButton className="btn btn-normal pull-left" onClick={this.onBack.bind(this)}>
                 กลับ
               </EnButton>
             </div>
 
             <div className="col-xs-6 col-sm-6 col-md-6">
-              <EnButton className="btn btn-continues pull-right" onClick={this.onNext.bind(this)}>
+              <EnButton className="btn btn-normal pull-right" onClick={this.onNext.bind(this)}>
                 ยืนยัน
               </EnButton>
             </div>

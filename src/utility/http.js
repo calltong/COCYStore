@@ -28,8 +28,8 @@ function setAuthorizationHeaders(options) {
   }
 
   if (options.authorization) {
-    let token = cookie.load('auth').token;
-    options.headers.authorization = `Bearer ${token}`;
+    //let token = cookie.load('auth').token;
+    options.headers.authorization = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNTlhMjhiMWMwZDI3ZmFiNThlZjUyZjYzIiwicHJvamVjdCI6eyJmb2xkZXIiOiIiLCJkYl9uYW1lIjoicG9tcG9tX2RiIiwiYWRkcmVzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMSJ9LCJleHAiOjE1MDM5NDgxMzh9.0ceBr42m8sWeWIBl9Ywnm03UcWNc8t15mG9QfL_KjzM';
   }
   return options;
 }

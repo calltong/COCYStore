@@ -68,20 +68,6 @@ reducer.register('PRO_STORE_NEXT_LIST', (state, action) => {
 
   return state;
 });
-/*
-reducer.register('PRO_GET_PRODUCT_ITEM', (state, action) => {
-  let {id} = action.params;
-  let url = `${config.api.url}/product/${id}`;
-  http.get(url, {}).done(response => {
-    if (response.statusCode === http.StatusOK) {
-      let data = response.body;
-      store.update('PRO_STORE_PRODUCT_ITEM', {data});
-    }
-  });
-
-  return state;
-});
-*/
 
 reducer.register('PRO_STORE_PRODUCT_ITEM', (state, action) => {
   let {data} = action.params;
