@@ -29,7 +29,8 @@ function setAuthorizationHeaders(options) {
 
   if (options.authorization) {
     //let token = cookie.load('auth').token;
-    options.headers.authorization = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNTlhMjhiMWMwZDI3ZmFiNThlZjUyZjYzIiwicHJvamVjdCI6eyJmb2xkZXIiOiIiLCJkYl9uYW1lIjoicG9tcG9tX2RiIiwiYWRkcmVzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMSJ9LCJleHAiOjE1MDM5NDgxMzh9.0ceBr42m8sWeWIBl9Ywnm03UcWNc8t15mG9QfL_KjzM';
+    //options.headers.authorization = token;
+    options.headers.authorization = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNTlhMjhiMWMwZDI3ZmFiNThlZjUyZjYzIiwicHJvamVjdCI6eyJmb2xkZXIiOiJyZXNvdXJjZS9zZW9jeSIsImRiX25hbWUiOiJwb21wb21fZGIiLCJhZGRyZXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDAxIn0sImV4cCI6MTUzNTkwMDgyNn0.o6TOwvyCbRIkhA_89ZQ60XKh-Dr1g76eiZZZvO4Cgwg';
   }
   return options;
 }

@@ -2,7 +2,7 @@ import {store} from '../store';
 import {config} from '../config';
 import {http} from '../utility/http';
 
-export class PageAction {
+export class PageAction {  
   getMenu() {
     let page = store.getState().page;
     if (page.menu._id === '') {
