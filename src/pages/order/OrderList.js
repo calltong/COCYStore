@@ -3,9 +3,6 @@ import React from 'react';
 import {actions} from '../../actions/Action';
 import {store} from '../../store';
 
-import EnButton from '../forms/EnButton';
-import TextLine from '../component/TextLine';
-
 export class OrderList extends React.Component {
   onMinus(index) {
     store.update('ORDER_DOWN_QUANTITY', {index:index});

@@ -2,7 +2,6 @@ import React from 'react';
 import swal from 'sweetalert';
 
 import OrderList from './OrderList';
-import EnButton from '../forms/EnButton';
 
 import {actions} from '../../actions/Action';
 import {store} from '../../store';

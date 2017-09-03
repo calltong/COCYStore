@@ -1,6 +1,6 @@
-import {store} from '../store';
-import {config} from '../config';
-import {http} from '../utility/http';
+//import {store} from '../store';
+//import {config} from '../config';
+//import {http} from '../utility/http';
 
 export class OrderAction {
   clearSelect() {
