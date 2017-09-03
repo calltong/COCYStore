@@ -82,6 +82,14 @@ export class ProductAction {
   SetImage(index) {
     store.update('PRO_SET_IMAGE', {index: index});
   }
+
+  ClearSelected() {
+    let data = {
+      quantity: 1,
+      size: undefined,
+    };
+    store.update('PRO_SELECTED_DETAIL', {data});
+  }
 }
 
 export const action = new ProductAction();

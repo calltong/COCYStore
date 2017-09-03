@@ -5,7 +5,6 @@ import {actions} from '../../actions/Action';
 
 export class HowToBuy extends ReducerBase {
   componentDidMount() {
-    console.log('HowToBuy');
     actions.page.getHowBuy();
   }
 

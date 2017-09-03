@@ -1,10 +1,10 @@
 import {Store} from './redux-manager';
 
 import {reducer as main} from './pages/main/reducer';
-import {reducer as order} from './pages/order/reducer';
-import {reducer as product} from './pages/product/reducer';
-import {reducer as customer} from './pages/customer/reducer';
+import {reducer as customer} from './astores/customer';
+import {reducer as order} from './astores/order';
 import {reducer as page} from './astores/page';
+import {reducer as product} from './astores/product';
 
 export const store = new Store({
   main: main.combine(),

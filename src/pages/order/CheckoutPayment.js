@@ -1,5 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
+
 import {actions} from '../../actions/Action';
 import {store} from '../../store';
 import {manager} from '../../utility/Manager';

@@ -1,13 +1,17 @@
 import React from 'react';
 import swal from 'sweetalert';
-import bank from '../../images/bank.jpg';
-//import {ReducerBase} from '../ReducerBase';
+
+import {ReducerBase} from '../ReducerBase';
 import {store} from '../../store';
+import {actions} from '../../actions/Action';
 
 import EnImageSelector from '../forms/EnImageSelector';
 import EnButton from '../forms/EnButton';
 
-export class PaymentRegister extends React.Component {
+export class PaymentRegister extends ReducerBase {
+  componentDidMount() {
+    actions.page.getPayment();
+  }
 
   onDropImage(files) {
     let reader = new FileReader();
@@ -41,8 +45,38 @@ export class PaymentRegister extends React.Component {
     }
   }
 
+  getBankName(bank) {
+    switch (bank) {
+      case 'scb':
+        return '‎ไทยพาณิชย์';
+      case 'kbank':
+        return 'กสิกรไทย';
+      case 'bbl':
+        return 'กรุงเทพฯ';
+      case 'bay':
+        return 'กรุงศรีอยุธยา';
+      default:
+        return '';
+    }
+  }
+
   render() {
+    let state = store.getState();
+    let payment = state.page.payment;
     let data = this.props.data;
+    let list = payment.data.list.map((item, index) => {
+      return (
+        <div className="row" key={index} >
+          <div className="col-xs-4 col-sm-4 col-md-4">
+            <p>{this.getBankName(item.bank)}</p>
+          </div>
+          <div className="col-xs-8 col-sm-8 col-md-8">
+            <p>{item.number}</p>
+            <p>{item.name}</p>
+          </div>
+        </div>
+      );
+    });
     return (
       <div className="panel panel-customer">
         <div className="panel-heading">
@@ -61,8 +95,11 @@ export class PaymentRegister extends React.Component {
             </div>
 
             <div className="col-xs-12 col-sm-12 col-md-6">
-              <div className="form-group" style={{margin:'0 auto', width:'200px'}}>
-                <img src={bank} role="presentation" className="payment-img" />
+              <div className="form-group" style={{margin:'0 auto', width: '80%'}}>
+                <label>ธนาคาร</label>
+                <div>
+                  {list}
+                </div>
               </div>
             </div>
           </div>
@@ -70,13 +107,13 @@ export class PaymentRegister extends React.Component {
         <div className="panel-footer">
           <div className="row">
             <div className="col-xs-6 col-sm-6 col-md-6">
-              <EnButton className="btn btn-normal pull-left" onClick={this.onBack.bind(this)}>
+              <EnButton className="btn btn-normal btn-summary-size pull-left" onClick={this.onBack.bind(this)}>
                 กลับ
               </EnButton>
             </div>
 
             <div className="col-xs-6 col-sm-6 col-md-6">
-              <EnButton className="btn btn-normal pull-right" onClick={this.onNext.bind(this)}>
+              <EnButton className="btn btn-normal btn-summary-size pull-right" onClick={this.onNext.bind(this)}>
                 ยืนยัน
               </EnButton>
             </div>

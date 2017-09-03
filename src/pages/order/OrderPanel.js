@@ -31,10 +31,12 @@ export class OrderPanel extends React.Component {
       footer = (
         <div className="panel-footer">
           <div className="row">
-            <div className="col-xs-12 col-sm-12 col-md-12">
-              <EnButton className="btn btn-normal pull-right" onClick={this.checkoutByGuest.bind(this)}>
+            <div className="col-xs-12 col-sm-12 col-md-4 col-md-offset-8">
+              <button type="button"
+                className="btn btn-normal btn-summary-size pull-right"
+                onClick={this.checkoutByGuest.bind(this)} >
                 ยืนยัน
-              </EnButton>
+              </button>
             </div>
           </div>
         </div>
@@ -46,7 +48,7 @@ export class OrderPanel extends React.Component {
           รายการสินค้า
         </div>
         <div className="panel-body" style={{padding:'8px'}}>
-          <OrderList data={data}/>
+          <OrderList data={data} />
         </div>
         {footer}
       </div>

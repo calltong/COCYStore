@@ -56,13 +56,29 @@ let menu = {
   }
 };
 
+let product = {
+  _id: '',
+  page: '',
+  name: '',
+  status: '',
+  data: {
+    css : {
+      size : 22,
+      font : '',
+      color : '#000000',
+      bg_color : '#ffffff'
+    },
+    list: []
+  }
+};
+
 export const reducer = new Reducer({
   menu: _.cloneDeep(menu),
   home: _.cloneDeep(instance),
   how_buy: _.cloneDeep(instance),
   about_us: _.cloneDeep(instance),
   order_condition: _.cloneDeep(instance),
-  product: _.cloneDeep(instance),
+  product: _.cloneDeep(product),
   product_list: _.cloneDeep(instance),
   payment: _.cloneDeep(instance),
 });

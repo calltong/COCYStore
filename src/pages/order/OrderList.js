@@ -7,7 +7,6 @@ import EnButton from '../forms/EnButton';
 import TextLine from '../component/TextLine';
 
 export class OrderList extends React.Component {
-
   onMinus(index) {
     store.update('ORDER_DOWN_QUANTITY', {index:index});
     actions.tracking.action('Order List', 'Decrease', 'Order');
@@ -57,20 +56,20 @@ export class OrderList extends React.Component {
         button = (
           <div className="row">
             <div style={{textAlign: 'center'}}>
-              <EnButton className="btn btn-normal btn-summary-size"
+              <button className="btn btn-normal btn-summary-size"
                 onClick={this.onMinus.bind(this, index)}>
                 <i className="fa fa-minus"/>
-              </EnButton>
+              </button>
 
-              <EnButton className="btn btn-normal btn-summary-size"
-                onClick={this.onPlus.bind(this, index)}>
+              <button className="btn btn-normal btn-summary-size"
+                onClick={this.onPlus.bind(this, index)} >
                 <i className="fa fa-plus"/>
-              </EnButton>
+              </button>
 
-              <EnButton className="btn btn-remove btn-summary-size"
-                onClick={this.onRemove.bind(this, index)}>
+              <button className="btn btn-remove btn-summary-size"
+                onClick={this.onRemove.bind(this, index)} >
                 ลบ
-              </EnButton>
+              </button>
             </div>
           </div>
         );
@@ -83,7 +82,7 @@ export class OrderList extends React.Component {
       <div key={index++}>
         <div className="row">
           <div className="col-xs-3 col-sm-3 col-md-3 order-col-header">
-            <img className="summary-img img-rounded" src={img} role="presentation"/>
+            <img className="summary-img img-rounded" src={img} role="presentation" />
           </div>
 
           <div className="col-xs-9 col-sm-9 col-md-9">
@@ -105,33 +104,17 @@ export class OrderList extends React.Component {
             {button}
 
           </div>
-
-
         </div>
 
         <hr style={{marginTop: 2, marginBottom: 2}}/>
       </div>
       );
     });
-
-    let blockShipping;
-    if (summary.shipping > 0) {
-      blockShipping = ( <TextLine name="Shipping" value={summary.shipping} /> );
-    }
-
-    let blockDiscount;
-    if (summary.discount > 0) {
-      blockDiscount = ( <TextLine name="Discount" value={summary.discount} /> );
-    }
     let total = summary.total + summary.shipping - summary.discount;
 
     return (
         <div className="container-fluid">
           <p className="summary-total">รวม: {this.replaceMoney(total, 12)}&#3647;</p>
-
-          {blockShipping}
-
-          {blockDiscount}
 
           <div className="row">
             <div className="col-xs-3 col-sm-3 col-md-3 order-col-header">

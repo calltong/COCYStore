@@ -28,14 +28,21 @@ export class OrderUpdate extends Component {
                 <OrderList data={data}/>
               </div>
               <div className="panel-footer">
-                <button type="button" className="btn btn-continues pull-right"
-                  onClick={this.onContinues.bind(this)}>
-                  Continues
-                </button>
-                <button type="button" className="btn btn-continues pull-right"
-                  onClick={this.onCheckout.bind(this)}>
-                  Checkout
-                </button>
+                <div className="col-sm-6 col-md-4">
+                  <button type="button"
+                    className="btn btn-normal btn-fullsize"
+                    onClick={this.onContinues.bind(this)}>
+                    เลือกสินค้าต่อ
+                  </button>
+                </div>
+
+                <div className="col-sm-6 col-md-4 col-md-offset-4">
+                  <button type="button"
+                    className="btn btn-normal btn-fullsize"
+                    onClick={this.onCheckout.bind(this)}>
+                    Checkout
+                  </button>
+                </div>
               </div>
             </div>
 
