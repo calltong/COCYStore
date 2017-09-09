@@ -4,13 +4,6 @@ import {http} from '../utility/http';
 
 export class PageAction {
   getMenu() {
-    let x = 100;
-    let y = 150;
-    for (let i = 0; i < 120; i++) {
-      console.log('x:', x, ' y:', y);
-      x += 10;
-      y += 15;
-    }
     let page = store.getState().page;
     if (page.menu._id === '') {
       let url = `${config.api.url}/page/menu/active`;
