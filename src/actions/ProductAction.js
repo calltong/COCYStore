@@ -4,26 +4,25 @@ import {http} from '../utility/http';
 
 
 export class ProductAction {
-
   getList(type) {
     let product = store.getState().product;
     let page = product.page;
-    page.index = 1;
-    page.next = 'loading';
-    page.condition.type = type;
-
     let url = `${config.api.url}/product?page=1&&limit=${page.limit}`;
     if (type) {
       url += `&&type=${type}`;
     }
-    store.update('PRO_SET_PAGE', {page: page});
 
+    page.index = 1;
+    page.next = 'loading';
+    page.condition.type = type;
+    store.update('PRO_SET_PAGE', {page: page});
+    store.update('PRO_STORE_PRODUCT_LIST', {data: []});
     http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
         if (data) {
-          page.next = 'ready';
           store.update('PRO_STORE_PRODUCT_LIST', {data});
+          page.next = 'ready';
         } else {
           page.next = 'end';
         }
@@ -37,7 +36,19 @@ export class ProductAction {
     http.get(url, {authorization: true}).done(response => {
       if (response.statusCode === http.StatusOK) {
         let data = response.body;
+        let stock  = data.stock_list.find(item => {
+          return (
+            item.quantity > 0
+          );
+        });
+        if (stock) {
+          this.SetSize(stock.size);
+        } else {
+          this.SetSize(undefined);
+        }
+
         store.update('PRO_STORE_PRODUCT_ITEM', {data});
+
       }
     });
   }
@@ -45,7 +56,7 @@ export class ProductAction {
   getNextList(type) {
     let product = store.getState().product;
     let page = product.page;
-    page.index = page.index + 1;
+    page.index += 1;
     page.next = 'loading';
     store.update('PRO_SET_PAGE', {page: page});
     let url = `${config.api.url}/product?page=${page.index}&&limit=${page.limit}`;

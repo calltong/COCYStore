@@ -1,21 +1,20 @@
 import React from 'react';
 
 import {actions} from '../../actions/Action';
-import {store} from '../../store';
 
 export class OrderList extends React.Component {
   onMinus(index) {
-    store.update('ORDER_DOWN_QUANTITY', {index:index});
+    actions.order.downQuantity(index);
     actions.tracking.action('Order List', 'Decrease', 'Order');
   }
 
   onPlus(index) {
-    store.update('ORDER_UP_QUANTITY', {index:index});
+    actions.order.upQuantity(index);
     actions.tracking.action('Order List', 'Increase', 'Order');
   }
 
   onRemove(index) {
-    store.update('ORDER_REMOVE_BAG', {index:index});
+    actions.order.removeFromBag(index);
     actions.tracking.action('Order List', 'Remove', 'Order');
   }
 

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import {manager} from '../utility/Manager';
 import {store} from '../store';
+import {actions} from '../actions/Action';
 import {config} from '../config';
 import {cookiedb} from '../utility/CookieStore';
 import {http} from '../utility/http';
@@ -63,11 +64,7 @@ reducer.register('CUSTOMER_CREATE', (state, action) => {
       let cdata = response.body;
       store.update('CUSTOMER_STORE', {data: cdata});
       store.update('CUSTOMER_SET_LOGIN', {login: true});
-      store.update('ORDER_SAVE', {
-        customer_id: cdata._id,
-        status: 'order',
-        next: next,
-      });
+      actions.order.save(cdata._id, 'order', undefined, undefined, next);
     }
   });
   return state;
@@ -100,16 +97,6 @@ reducer.register('CUSTOMER_GET_BY_ID', (state, action) => {
     }
   });
 
-  return state;
-});
-
-reducer.register('CUSTOMER_GET_BY_LINE', (state, action) => {
-  let {id} = action.params;
-  let url = `${config.api.url}/customer/${id}/line`;
-  http.get(url, {authorization: true}).done(response => {
-    console.log('Code:', response.statusCode);
-    console.log('Body:', response.body);
-  });
   return state;
 });
 

@@ -35,13 +35,7 @@ export class CheckoutCustomer extends ReducerBase {
     store.update('CUSTOMER_SAVE', {
       data: customer,
     });
-
-    store.update('ORDER_SAVE', {
-      status: 'working',
-      shipping: order.shipping,
-      next: `/tracking/${order._id}`,
-      clear: true,
-    });
+    actions.order.save(undefined, 'working', order.shipping, true, `/tracking/${order._id}`);
     actions.tracking.action('Customer Checkout', 'checkout', 'Order');
   }
 

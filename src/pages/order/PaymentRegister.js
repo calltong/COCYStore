@@ -21,7 +21,8 @@ export class PaymentRegister extends ReducerBase {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        store.update('ORDER_SET_SLIP', {data});
+        actions.order.setSlip(data);
+        //store.update('ORDER_SET_SLIP', {data});
       };
     };
     reader.readAsDataURL(files[0]);

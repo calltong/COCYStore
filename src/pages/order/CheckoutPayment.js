@@ -17,10 +17,7 @@ export class CheckoutPayment extends ReducerBase {
   }
 
   checkout() {
-    store.update('ORDER_SAVE', {
-      status: 'payment',
-      next: '/customer',
-    });
+    actions.order.save(undefined, 'payment', undefined, undefined, '/customer');
     actions.tracking.action('Payment Checkout', 'checkout', 'Order');
   }
 

@@ -40,12 +40,7 @@ export class CheckoutOrder extends ReducerBase {
           mobile: customer.information.mobile,
           email: customer.email,
         };
-        store.update('ORDER_SAVE', {
-          customer_id: customer._id,
-          status: 'order',
-          shipping: shipping,
-          next: '/payment',
-        });
+        actions.order.save(customer._id, 'order', shipping, undefined, '/payment')
       } else {
         browserHistory.push('/payment');
       }

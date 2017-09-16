@@ -1,7 +1,4 @@
-//import cookie from 'react-cookie';
 import Cookies from 'universal-cookie';
-//import {config} from '../config';
-//import {http} from './http';
 const cookie = new Cookies();
 
 class CookieStore {

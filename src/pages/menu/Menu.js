@@ -34,7 +34,8 @@ export class Menu extends ReducerBase {
   }
 
   render() {
-    let order = store.getState().order;
+    let order = store.getState().order.data;
+    let len = order.display_list.length;
     let doc = store.getState().page.menu;
 
     let menu = doc.data.menu;
@@ -82,7 +83,7 @@ export class Menu extends ReducerBase {
             <ul className="nav navbar-nav navbar-right">
               <li>
                 <a onClick={this.onOrder.bind(this)} style={css} >
-                  <i className="fa fa-shopping-bag"> {order.data.db_list.length}</i>
+                  <i className="fa fa-shopping-bag"> {len}</i>
                 </a>
               </li>
 

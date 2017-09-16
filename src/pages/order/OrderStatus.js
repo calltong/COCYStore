@@ -1,10 +1,7 @@
 import React from 'react';
+import moment from 'moment';
 
 export class OrderStatus extends React.Component {
-  getDateString(val) {
-    return val.getDate() + '/' + val.getMonth() + '/' + val.getFullYear() + ' ' + val.getHours() + ':' + val.getMinutes();
-  }
-
   render() {
     let data = this.props.data;
     let status = data.status;
@@ -15,10 +12,11 @@ export class OrderStatus extends React.Component {
     let working = ' ';
     let shipping = ' ';
     let completed = ' ';
+    let reject = ' ';
     for (let item of data.status_list) {
       let date = ' ';
       if (item.updated_at !== 0) {
-        date = this.getDateString(new Date(item.updated_at));
+        date = moment(item.updated_at).format('DD-MM-YYYY HH:mm');
       }
       switch (item.status) {
         case 'order':
@@ -36,14 +34,51 @@ export class OrderStatus extends React.Component {
         case 'completed':
           completed = date;
           break;
+        case 'reject':
+          reject = date;
+          break;
         default:
 
       }
     }
+
+    let sectionDelivery = <div />;
+    let section;
+    if (status === 'reject') {
+      section = (
+        <div className="col-xs-12 col-md-12">
+          <div className="help-text summary-orderstatus">
+            <span className={status==='completed'?set:unset}>5</span>
+            <p>ลูกค้ายกเลิกสินค้า</p>
+            <p>{reject}</p>
+          </div>
+        </div>
+      );
+    } else {
+      sectionDelivery = (
+        <div className="col-xs-12 col-md-12">
+          <div className="help-text summary-orderstatus">
+            <span className={status==='shipping'?set:unset}>4</span>
+            <p>จัดส่งสินค้า</p>
+            <p>{shipping}</p>
+          </div>
+        </div>
+      );
+      section = (
+        <div className="col-xs-12 col-md-12">
+          <div className="help-text summary-orderstatus">
+            <span className={status==='completed'?set:unset}>5</span>
+            <p>ลูกค้าได้รับสินค้า</p>
+            <p>{completed}</p>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="panel panel-status">
         <div className="panel-heading">
-          Order Tracking
+          สถานะสั่งซื้อสินค้า
         </div>
         <div className="panel-body">
           <div className="row">
@@ -71,21 +106,10 @@ export class OrderStatus extends React.Component {
               </div>
             </div>
 
-            <div className="col-xs-12 col-md-12">
-              <div className="help-text summary-orderstatus">
-                <span className={status==='shipping'?set:unset}>4</span>
-                <p>จัดส่งสินค้า</p>
-                <p>{shipping}</p>
-              </div>
-            </div>
+            {sectionDelivery}
 
-            <div className="col-xs-12 col-md-12">
-              <div className="help-text summary-orderstatus">
-                <span className={status==='completed'?set:unset}>5</span>
-                <p>ลูกค้าได้รับสินค้า</p>
-                <p>{completed}</p>
-              </div>
-            </div>
+            {section}
+
           </div>
         </div>
       </div>

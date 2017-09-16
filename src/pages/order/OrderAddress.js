@@ -7,7 +7,7 @@ export class OrderAddress extends React.Component {
     return (
       <div className="panel panel-order">
         <div className="panel-heading">
-          Shipping
+          ข้อมูลลูกค้า
         </div>
         <div className="panel-body" style={{padding:'8px'}}>
           <div className="shipping">

@@ -62,11 +62,7 @@ class ProductDetail extends ReducerBase {
             showConfirmButton: true,
           });
         } else {
-          store.update('ORDER_ADD_BAG', {
-            product: product.data,
-            size: detail.size,
-            quantity: detail.quantity,
-          });
+          actions.order.addToBag(product.data, detail.size, detail.quantity);
           manager.DisplayPanel('#OrderUpdate');
         }
 
@@ -91,10 +87,27 @@ class ProductDetail extends ReducerBase {
 
     let doc = state.page.product.data;
     let size = undefined;
+    let disabled = false;
     if (detail.size) {
-      size = detail.size._id;
-    } else if (data.stock_list.length > 0) {
-      size = data.stock_list[0].size._id;
+      let id = detail.size._id;
+      let sizeList = data.stock_list.map(item => {
+        return {
+          value: item.size._id,
+          label: item.size.name,
+          clearableValue: false,
+          disabled: item.quantity===0,
+        };
+      });
+      size = (
+        <Select
+          clearable={false}
+          searchable={false}
+          value={id}
+          options={sizeList}
+          onChange={this.sizeChange.bind(this)} /> );
+    } else {
+      disabled = true;
+      size = (<p style={{color: '#B90303'}}>สินค้าหมดค่ะ</p>);
     }
 
     let css = {
@@ -118,15 +131,6 @@ class ProductDetail extends ReducerBase {
       price = (<h4 className="product-price">ราคา: &#3647;{data.price}</h4>);
     }
 
-    let sizeList = data.stock_list.map(item => {
-      return {
-        value: item.size._id,
-        label: item.size.name,
-        clearableValue: false,
-        disabled: item.quantity===0,
-      };
-    });
-
     return (
     <div className="product-info-detail">
       <div className="header">
@@ -140,12 +144,7 @@ class ProductDetail extends ReducerBase {
           <div className="col-xs-12 col-sm-6 col-md-5">
             <div className="form-group">
               <label>ขนาดสินค้า</label>
-              <Select
-                clearable={false}
-                searchable={false}
-                value={size}
-                options={sizeList}
-                onChange={this.sizeChange.bind(this)} />
+              {size}
             </div>
           </div>
 
@@ -182,6 +181,7 @@ class ProductDetail extends ReducerBase {
         <div className="row">
           <div className="col-xs-12 col-sm-6 col-md-5">
             <button type="button"
+              disabled={disabled}
               style={css}
               className="btn"
               onClick={this.addToBag.bind(this)} >

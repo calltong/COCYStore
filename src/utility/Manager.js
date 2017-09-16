@@ -1,4 +1,3 @@
-//import {facebook} from './Facebook';
 import $ from 'jquery';
 
 import {config} from '../config';
@@ -6,7 +5,7 @@ import {http} from './http';
 import {store} from '../store';
 import {cookiedb} from './CookieStore';
 import {client} from './client';
-//import {actions} from '../actions/Action';
+import {actions} from '../actions/Action';
 
 class Manager {
   initial() {
@@ -29,15 +28,9 @@ class Manager {
   loadOrder(data) {
     if (data.order) {
       if (data.order.id && data.order.id !== '') {
-        store.update('ORDER_GET_ITEM', {id: data.order.id});
+        actions.order.getItem(data.order.id);
       } else if (data.order.list.length !== 0) {
-        let url = `${config.api.url}/order/reword`;
-        http.post(url, {json: {product_list: data.order.list}, authorization: true}).done(response => {
-          if (response.statusCode === http.StatusOK) {
-            let cdata = response.body;
-            store.update('ORDER_STORE_ORDER', {display: cdata, db: data.order.list});
-          }
-        });
+        actions.order.reverseOrder(data);
       }
     }
   }

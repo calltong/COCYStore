@@ -1,10 +1,6 @@
 //import moment from 'moment';
 import _ from 'lodash';
-import {browserHistory} from 'react-router';
 import {cookiedb} from '../utility/CookieStore';
-import {store} from '../store';
-import {config} from '../config';
-import {http} from '../utility/http';
 
 import {Reducer} from '../redux-manager';
 let instance = {
@@ -57,7 +53,7 @@ reducer.register('ORDER_CLEAR', (state, action) => {
   cookiedb.saveOrder(state.data);
   return state;
 });
-
+/*
 reducer.register('ORDER_GET_ITEM', (state, action) => {
   let {id} = action.params;
 
@@ -115,11 +111,7 @@ reducer.register('ORDER_SAVE', (state, action) => {
 
   let url = '';
   if (json._id === '') {
-    let date = new Date(Date.now());
-    let dd = date.getDate();
-    let mm = date.getMonth();
-    let yy = date.getFullYear();
-    json.order_date = `${dd}-${mm}-${yy}`;
+    json.created_at = Date.now();
     url = `${config.api.url}/order/createdb`;
     http.post(url, {json, authorization: true}).done(response => {
       if (response.statusCode === http.StatusCreated) {
@@ -153,13 +145,13 @@ reducer.register('ORDER_SAVE', (state, action) => {
 
   return state;
 });
-
+*/
 reducer.register('ORDER_STORE', (state, action) => {
   let {data} = action.params;
   state.data = data;
   return state;
 });
-
+/*
 reducer.register('ORDER_STORE_ORDER', (state, action) => {
   let {display, db} = action.params;
   state.data.display_list = display;
@@ -185,17 +177,24 @@ reducer.register('ORDER_SAVE_DATA', (state, action) => {
   return state;
 });
 
+
 reducer.register('ORDER_ADD_BAG', (state, action) => {
   let {product, size, quantity} = action.params;
+  let price = product.price;
+  if (product.sale_price > 0) {
+    price = product.sale_price;
+  }
   let data = {
     product,
     size,
+    price,
     quantity,
   };
 
   let pdata = {
     product_id: product._id,
     size_id: size._id,
+    price,
     quantity,
   };
 
@@ -229,6 +228,7 @@ reducer.register('ORDER_REMOVE_BAG', (state, action) => {
   cookiedb.saveOrder(state.data);
   return state;
 });
+
 
 reducer.register('ORDER_UP_QUANTITY', (state, action) => {
   let {index} = action.params;
@@ -271,6 +271,7 @@ reducer.register('ORDER_DOWN_QUANTITY', (state, action) => {
   return state;
 });
 
+/*
 reducer.register('ORDER_SET_SLIP', (state, action) => {
   let {data} = action.params;
   state.data.payment.type = 'slip';
@@ -278,6 +279,7 @@ reducer.register('ORDER_SET_SLIP', (state, action) => {
   state.data.payment.data.updated = true;
   return state;
 });
+
 
 reducer.register('ORDER_GET_TRACKING', (state, action) => {
   let {id} = action.params;
@@ -295,6 +297,7 @@ reducer.register('ORDER_GET_TRACKING', (state, action) => {
 
   return state;
 });
+*/
 
 reducer.register('ORDER_STORE_TRACKING', (state, action) => {
   let {data} = action.params;
