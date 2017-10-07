@@ -1,39 +1,20 @@
 import React from 'react';
-import swal from 'sweetalert';
 
 import OrderList from './OrderList';
 
-import {actions} from '../../actions/Action';
-import {store} from '../../store';
-
-export class OrderPanel extends React.Component {
-  checkoutByGuest() {
-    let data = store.getState().order.data;
-    if (data.display_list.length === 0) {
-      swal({
-        title: 'รายการสินค้า',
-        text: 'กรุณาเลือกสินค้าก่อนนะค่ะ',
-        timer: 3000,
-        showConfirmButton: true,
-      });
-      actions.tracking.action('Order Checkout', 'checkout by guest-none cart ', 'Order');
-    } else {
-      actions.tracking.action('Order Checkout', 'checkout by guest', 'Order');
-      store.update('CUSTOMER_CREATE', {next: '/payment'});
-    }
-  }
+export default class OrderPanel extends React.Component {
 
   render() {
     let data = this.props.data;
     let footer = <div />;
-    if (this.props.disable === undefined) {
+    if (this.props.checkout !== undefined) {
       footer = (
         <div className="panel-footer">
           <div className="row">
             <div className="col-xs-12 col-sm-12 col-md-4 col-md-offset-8">
               <button type="button"
                 className="btn btn-normal btn-summary-size pull-right"
-                onClick={this.checkoutByGuest.bind(this)} >
+                onClick={this.props.checkout} >
                 ยืนยัน
               </button>
             </div>
@@ -54,5 +35,3 @@ export class OrderPanel extends React.Component {
     );
   }
 }
-
-export default OrderPanel;

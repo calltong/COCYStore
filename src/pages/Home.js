@@ -3,13 +3,14 @@ import {ReducerBase} from './ReducerBase';
 import {store} from '../store';
 import {actions} from '../actions/Action';
 import {manager} from '../utility/Manager';
+import {ga} from '../utility/ga';
 
 import Builder from './content/Builder';
 
 export class Home extends ReducerBase {
   componentDidMount() {
     actions.page.getHome();
-    actions.tracking.view();
+    ga.view('Home Page');
     manager.SetOnTop();
   }
 

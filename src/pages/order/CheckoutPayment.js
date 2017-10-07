@@ -4,6 +4,7 @@ import {browserHistory} from 'react-router';
 import {actions} from '../../actions/Action';
 import {store} from '../../store';
 import {manager} from '../../utility/Manager';
+import {ga} from '../../utility/ga';
 import {ReducerBase} from '../ReducerBase';
 
 import OrderPanel from './OrderPanel';
@@ -12,18 +13,18 @@ import PaymentRegister from './PaymentRegister';
 
 export class CheckoutPayment extends ReducerBase {
   componentDidMount() {
-    actions.tracking.view();
+    ga.view();
     manager.SetOnTop();
   }
 
   checkout() {
-    actions.order.save(undefined, 'payment', undefined, undefined, '/customer');
-    actions.tracking.action('Payment Checkout', 'checkout', 'Order');
+    actions.order.payment();
+    ga.action('Checkout', 'Confirm Payment', 'Payment');
   }
 
   backCheckout() {
     browserHistory.push('/order');
-    actions.tracking.action('Payment Checkout', 'back', 'Order');
+    ga.action('Checkout', 'Back', 'Payment');
   }
 
   render() {
@@ -32,7 +33,7 @@ export class CheckoutPayment extends ReducerBase {
     <div className="container summary-form">
       <div className="row">
         <div className="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
-          <OrderMenu status={'payment'} />
+          <OrderMenu status={'created'} />
         </div>
       </div>
       <div className="row">

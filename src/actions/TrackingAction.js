@@ -1,43 +1,53 @@
-//import {store} from '../store';
-//import {ReactGA} from 'react-ga';
-//import {config} from '../config';
-//import {http} from '../utility/http';
-import {client} from '../utility/client';
-//import {cookiedb} from '../utility/CookieStore';
-
-let id = client.getFingerprint();
-let ReactGA = require('react-ga');
-ReactGA.initialize('UA-100117427-1', {
-  gaOptions: {
-    userId: id,
-  }});
+import {store} from '../store';
+import {config} from '../config';
+import {http} from '../utility/http';
+import {browserHistory} from 'react-router';
 
 export class TrackingAction {
-  data = {
-    updated_at: {
-      name: '',
-      value: '',
-    },
-    user: {
-      _id: '',
-      customer_id: '',
-      browser: '',
-      status_list: [],
-    },
-  };
-
-  view() {
-    let path = window.location.pathname;
-    ReactGA.ga('send', 'pageview', path);
+  reset() {
+    store.update('TRACKING_RESET');
   }
 
-  action(category, action, label) {
-    ReactGA.event({
-      category: category,
-      action: action,
-      label: label,
-      nonInteraction: true,
+  getItem(id) {
+    let url = `${config.api.url}/order/${id}`;
+    http.get(url, {authorization: true}).done(response => {
+      if (response.statusCode === http.StatusOK) {
+        let data = response.body;
+        this.setItem(data);
+      }
     });
+  }
+
+  setItem(data) {
+    store.update('TRACKING_STORE', {data: data});
+  }
+
+  setShipping(shipping) {
+    let data = store.getState().tracking.data;
+    data.shipping = shipping;
+    store.update('TRACKING_STORE', {data: data});
+  }
+
+  saveShipping() {
+    let data = store.getState().tracking.data;
+    let status = 'working';
+    let val = data.status_list.find(item => {
+      return item.status === status;
+    });
+
+    if (val === undefined) {
+      data.status = status;
+      data.status_list.push({status, updated_at: Date.now()})
+    }
+
+    if (data._id !== '') {
+      let url = `${config.api.url}/order/${data._id}/edit`;
+      http.put(url, {json: data, authorization: true}).done(response => {
+        if (response.statusCode === http.StatusOK) {
+          browserHistory.push(`/tracking/${data._id}`);
+        }
+      });
+    }
   }
 }
 

@@ -2,10 +2,12 @@ import React from 'react';
 import {ReducerBase} from '../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
+import {ga} from '../../utility/ga';
 
-export class HowToBuy extends ReducerBase {
+export default class HowToBuy extends ReducerBase {
   componentDidMount() {
     actions.page.getHowBuy();
+    ga.view();
   }
 
   render() {
@@ -32,5 +34,3 @@ export class HowToBuy extends ReducerBase {
     );
   }
 }
-
-export default HowToBuy;

@@ -5,15 +5,15 @@
 }
 
 .summary-form {
-	 width: 100%;
-	 margin-top: 10px;
+	width: 100%;
+	margin-top: 10px;
 }
 
 .summary-img {
 	display: block;
 	margin: 0 auto;
   height: 150px;
-  width: 120px;
+  width: 100px;
 }
 
 .summary-total {
@@ -32,13 +32,6 @@
 .user-img {
 	height: 80px;
 	width: 80px;
-}
-
-.payment-img {
-	min-height: 120px;
-	min-width: 120px;
-	max-height: 240px;
-	max-width: 200px;
 }
 
 .status-text {
@@ -153,7 +146,7 @@
 
 @media screen and (max-width: 1024px) {
 	.summary-img {
-	   height: 130px;
+	   height: 150px;
 	   width: 100px;
 	}
 
@@ -164,7 +157,7 @@
 
 @media (max-width: 768px) {
 	.summary-img {
-	    height: 117px;
+	    height: 135px;
 	    width: 90px;
 	}
 
@@ -187,7 +180,7 @@
 
 @media (max-width: 425px) {
 	.summary-img {
-	    height: 117px;
+	    height: 135px;
 	    width: 90px;
 	}
 
@@ -210,8 +203,8 @@
 
 @media screen and (max-width: 375px) {
 	.summary-img {
-	    height: 104px;
-	    width: 80px;
+	   height: 120px;
+	   width: 80px;
 	}
 
 	.btn-summary-size {
@@ -221,8 +214,8 @@
 
 @media screen and (max-width: 320px) {
 	.summary-img {
-	    height: 78px;
-	    width: 60px;
+	   height: 90px;
+	   width: 60px;
 	}
 
 	.panel-order > .panel-footer {

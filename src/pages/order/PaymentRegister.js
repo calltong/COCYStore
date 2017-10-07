@@ -8,7 +8,7 @@ import {actions} from '../../actions/Action';
 import EnImageSelector from '../forms/EnImageSelector';
 import EnButton from '../forms/EnButton';
 
-export class PaymentRegister extends ReducerBase {
+export default class PaymentRegister extends ReducerBase {
   componentDidMount() {
     actions.page.getPayment();
   }
@@ -124,5 +124,3 @@ export class PaymentRegister extends ReducerBase {
     );
   }
 }
-
-export default PaymentRegister;

@@ -1,53 +1,35 @@
 import React from 'react';
 
 import {actions} from '../../actions/Action';
+import {money} from '../../utility/display';
+import {ga} from '../../utility/ga';
 
-export class OrderList extends React.Component {
+export default class OrderList extends React.Component {
   onMinus(index) {
     actions.order.downQuantity(index);
-    actions.tracking.action('Order List', 'Decrease', 'Order');
+    ga.action('Order List', 'Decrease', 'Order');
   }
 
   onPlus(index) {
     actions.order.upQuantity(index);
-    actions.tracking.action('Order List', 'Increase', 'Order');
+    ga.action('Order List', 'Increase', 'Order');
   }
 
   onRemove(index) {
     actions.order.removeFromBag(index);
-    actions.tracking.action('Order List', 'Remove', 'Order');
-  }
-
-  replaceMoney(val, size) {
-    let text = val.toFixed(0).replace(/./g, function(c, i, a) {
-      return i && c !== '.' && ((a.length - i) % 3 === 0) ? ',' + c : c;
-    });
-    let n = size - text.length;
-    let space = '';
-    if (n > 0) {
-      space = '\u00A0'.repeat(n);
-    }
-
-    return space + text;
+    ga.action('Order List', 'Remove', 'Order');
   }
 
   render() {
     let order = this.props.data;
-    let index = 0;
-
     let visible = false;
     if (order.status === 'order' || order.status === 'payment') {
       visible = true;
     }
 
     let summary = order.summary;
-    let list = order.display_list.map(item => {
-      let product = item.product;
-      let price = product.price;
-      if (product.sale_price > 0) {
-        price = product.sale_price;
-      }
-      let button = (<div/>);
+    let list = order.list.map((item, index) => {
+      let button;
       if (visible) {
         button = (
           <div className="row">
@@ -69,23 +51,24 @@ export class OrderList extends React.Component {
             </div>
           </div>
         );
+      } else {
+        button = (<div/>);
       }
-      let img = '';
-      if (product.image_list !== null && product.image_list.length > 0) {
-        img = product.image_list[0].data;
-      }
+
       return (
-      <div key={index++}>
+      <div key={index}>
         <div className="row">
           <div className="col-xs-3 col-sm-3 col-md-3 order-col-header">
-            <img className="summary-img img-rounded" src={img} role="presentation" />
+            <img className="summary-img img-rounded" src={item.image} role="presentation" />
           </div>
 
           <div className="col-xs-9 col-sm-9 col-md-9">
 
             <div className="row summary-row-value">
               <div className="col-xs-4 col-sm-4 col-md-4 order-col-value" >
-                {item.size.name}
+                {item.color}
+                <br />
+                {item.size}
               </div>
 
               <div className="col-xs-4 col-sm-4 col-md-4 order-col-value">
@@ -93,12 +76,11 @@ export class OrderList extends React.Component {
               </div>
 
               <div className="col-xs-4 col-sm-4 col-md-4 order-col-value">
-                {this.replaceMoney(price*item.quantity, 0)}&#3647;
+                {money(item.price * item.quantity)}&#3647;
               </div>
             </div>
 
             {button}
-
           </div>
         </div>
 
@@ -110,7 +92,7 @@ export class OrderList extends React.Component {
 
     return (
         <div className="container-fluid">
-          <p className="summary-total">รวม: {this.replaceMoney(total, 12)}&#3647;</p>
+          <p className="summary-total">รวม: {money(total)}&#3647;</p>
 
           <div className="row">
             <div className="col-xs-3 col-sm-3 col-md-3 order-col-header">
@@ -118,7 +100,7 @@ export class OrderList extends React.Component {
             </div>
 
             <div className="col-xs-3 col-sm-3 col-md-3 order-col-header">
-              ขนาด
+              สี/ขนาด
             </div>
 
             <div className="col-xs-3 col-sm-3 col-md-3 order-col-header" >
@@ -136,5 +118,3 @@ export class OrderList extends React.Component {
     );
   }
 }
-
-export default OrderList;

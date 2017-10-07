@@ -8,7 +8,6 @@ export class OrderStatus extends React.Component {
     let set = 'badge badge-set';
     let unset = 'badge';
     let order = ' ';
-    let payment = ' ';
     let working = ' ';
     let shipping = ' ';
     let completed = ' ';
@@ -19,11 +18,8 @@ export class OrderStatus extends React.Component {
         date = moment(item.updated_at).format('DD-MM-YYYY HH:mm');
       }
       switch (item.status) {
-        case 'order':
+        case 'created':
           order = date;
-          break;
-        case 'payment':
-          payment = date;
           break;
         case 'working':
           working = date;
@@ -46,9 +42,9 @@ export class OrderStatus extends React.Component {
     let section;
     if (status === 'reject') {
       section = (
-        <div className="col-xs-12 col-md-12">
+        <div className="col-xs-3 col-md-3">
           <div className="help-text summary-orderstatus">
-            <span className={status==='completed'?set:unset}>5</span>
+            <span className={status==='completed'?set:unset}>4</span>
             <p>ลูกค้ายกเลิกสินค้า</p>
             <p>{reject}</p>
           </div>
@@ -56,18 +52,18 @@ export class OrderStatus extends React.Component {
       );
     } else {
       sectionDelivery = (
-        <div className="col-xs-12 col-md-12">
+        <div className="col-xs-3 col-md-3">
           <div className="help-text summary-orderstatus">
-            <span className={status==='shipping'?set:unset}>4</span>
+            <span className={status==='shipping'?set:unset}>3</span>
             <p>จัดส่งสินค้า</p>
             <p>{shipping}</p>
           </div>
         </div>
       );
       section = (
-        <div className="col-xs-12 col-md-12">
+        <div className="col-xs-3 col-md-3">
           <div className="help-text summary-orderstatus">
-            <span className={status==='completed'?set:unset}>5</span>
+            <span className={status==='completed'?set:unset}>4</span>
             <p>ลูกค้าได้รับสินค้า</p>
             <p>{completed}</p>
           </div>
@@ -82,25 +78,17 @@ export class OrderStatus extends React.Component {
         </div>
         <div className="panel-body">
           <div className="row">
-            <div className="col-xs-12 col-md-12">
+            <div className="col-xs-3 col-md-3">
               <div className="help-text summary-orderstatus">
-                <span className={status==='order'?set:unset}>1</span>
+                <span className={status==='created'?set:unset}>1</span>
                 <p>สั่งซื้อสินค้า</p>
                 <p>{order}</p>
               </div>
             </div>
 
-            <div className="col-xs-12 col-md-12">
+            <div className="col-xs-3 col-md-3">
               <div className="help-text summary-orderstatus">
-                <span className={status==='payment'?set:unset}>2</span>
-                <p>ชำระเงิน</p>
-                <p>{payment}</p>
-              </div>
-            </div>
-
-            <div className="col-xs-12 col-md-12">
-              <div className="help-text summary-orderstatus">
-                <span className={status==='working'?set:unset}>3</span>
+                <span className={status==='working'?set:unset}>2</span>
                 <p>เตรียมจัดส่ง</p>
                 <p>{working}</p>
               </div>

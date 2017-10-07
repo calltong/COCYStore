@@ -4,15 +4,16 @@ import ReactHtmlParser from 'react-html-parser';
 import {ReducerBase} from '../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
+import {ga} from '../../utility/ga';
 
-export class AboutUs extends ReducerBase {
+export default class AboutUs extends ReducerBase {
   componentDidMount() {
     actions.page.getAboutus();
+    ga.view();
   }
 
   render() {
     let doc = store.getState().page.about_us;
-    console.log('doc:', doc);
     let list = doc.data.list.map((item, index) => {
       return (
       <div key={index + 10}>
@@ -45,5 +46,3 @@ export class AboutUs extends ReducerBase {
     );
   }
 }
-
-export default AboutUs;

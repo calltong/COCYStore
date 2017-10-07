@@ -1,17 +1,18 @@
 import React from 'react';
 
 import {actions} from '../../actions/Action';
+import {ga} from '../../utility/ga';
 import {store} from '../../store';
 import {ReducerBase} from '../ReducerBase';
 import OrderPanel from './OrderPanel';
 import OrderStatus from './OrderStatus';
 import OrderAddress from './OrderAddress';
 
-export class OrderTracking extends ReducerBase {
+export default class OrderTracking extends ReducerBase {
   componentDidMount() {
     let id = this.props.params.id;
     actions.order.getOrderByTracking(id);
-    actions.tracking.view();
+    ga.view();
   }
 
   render() {
@@ -37,5 +38,3 @@ export class OrderTracking extends ReducerBase {
     );
   }
 }
-
-export default OrderTracking;

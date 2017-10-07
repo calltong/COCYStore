@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class OrderAddress extends React.Component {
+export default class OrderAddress extends React.Component {
 
   render() {
     let data = this.props.data;
@@ -20,5 +20,3 @@ export class OrderAddress extends React.Component {
     );
   }
 }
-
-export default OrderAddress;

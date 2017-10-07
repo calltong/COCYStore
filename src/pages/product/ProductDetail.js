@@ -7,32 +7,50 @@ import {ReducerBase} from '../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
 import {manager} from '../../utility/Manager';
+import {ga} from '../../utility/ga';
 
-class ProductDetail extends ReducerBase {
+export default class ProductDetail extends ReducerBase {
+  colorChange(val) {
+    let variant = this.product.variant_list.find(item => {
+      return item.color._id === val.value;
+    });
+    let name;
+    if (variant) {
+      let size;
+      if (variant.list.length > 0) {
+        size = variant.list[0].size;
+      }
+      actions.product.SetColor(variant.color, size, variant.image_list);
+      name = variant.color.content.main.name;
+    } else {
+      actions.product.SetColor(undefined, undefined, this.detail.all_image);
+      name = 'เลือกทั้งหมด';
+    }
+    ga.action('Product', 'Select Color', `${name}`);
+  }
+
   sizeChange(val) {
-    let stock = this.list.find(item => {
+    let stock = this.sizes.find(item => {
       return item.size._id === val.value;
     });
 
     actions.product.SetSize(stock.size);
-    actions.tracking.action('Product Detail', 'Select Size', `${stock.size.code}`);
+    ga.action('Product', 'Select Size', `${stock.size.code}`);
   }
 
   increaseQuantity() {
     actions.product.UpQuantity();
-    actions.tracking.action('Product Detail', 'Increase', 'Product');
+    ga.action('Product', 'Increase', '');
   }
 
   decreaseQuantity() {
     actions.product.DownQuantity();
-    actions.tracking.action('Product Detail', 'Decrease', 'Product');
+    ga.action('Product', 'Decrease', '');
   }
 
   addToBag() {
-    actions.tracking.action('Product Detail', 'Add to cart', 'Cart');
+    ga.action('Product', 'Add to cart', '');
     let state = store.getState();
-    let product = state.product;
-    let detail = product.detail;
     let order = state.order.data;
     if (order.status === 'shipping' || order.status === 'done') {
       swal({
@@ -47,12 +65,35 @@ class ProductDetail extends ReducerBase {
         swal('เริ่มใหม่อีกครั้ง!', '', 'success');
       });
     } else {
+      let detail = state.product.detail;
+      if (detail.color === undefined) {
+        swal({
+          title: 'เลือกสีสินค้าก่อนนะค่ะ',
+          text: '',
+          timer: 2000,
+          showConfirmButton: true,
+        });
+        return;
+      }
+
+      if (detail.size === undefined) {
+        swal({
+          title: 'เลือกขนาดสินค้าก่อนนะค่ะ',
+          text: '',
+          timer: 2000,
+          showConfirmButton: true,
+        });
+        return;
+      }
 
       if (detail.size) {
-        let productId = product.data._id;
+        let productId = state.product.data._id;
+        let colorId = detail.color._id;
         let sizeId = detail.size._id;
-        let check = order.display_list.find(item => {
-          return item.product._id === productId && item.size._id === sizeId;
+        let check = order.list.find(item => {
+          return item.product_id === productId &&
+            item.color_id === colorId &&
+            item.size_id === sizeId;
         });
         if (check) {
           swal({
@@ -62,54 +103,24 @@ class ProductDetail extends ReducerBase {
             showConfirmButton: true,
           });
         } else {
-          actions.order.addToBag(product.data, detail.size, detail.quantity);
+          let img = '';
+          if (detail.image_list.length > 0) {
+            img = detail.image_list[0];
+          }
+          actions.order.addToBag(state.product.data,
+            img,
+            detail.color,
+            detail.size,
+            detail.quantity);
           manager.DisplayPanel('#OrderUpdate');
         }
-
-      } else {
-        swal({
-          title: 'เลือกขนาดสินค้าด้วยนะค่ะ',
-          text: '',
-          timer: 2000,
-          showConfirmButton: true,
-        });
       }
     }
   }
 
   render() {
     let state = store.getState();
-    let product = state.product;
-    let detail = product.detail;
-    let data = product.data;
-
-    this.list = data.stock_list;
-
     let doc = state.page.product.data;
-    let size = undefined;
-    let disabled = false;
-    if (detail.size) {
-      let id = detail.size._id;
-      let sizeList = data.stock_list.map(item => {
-        return {
-          value: item.size._id,
-          label: item.size.name,
-          clearableValue: false,
-          disabled: item.quantity===0,
-        };
-      });
-      size = (
-        <Select
-          clearable={false}
-          searchable={false}
-          value={id}
-          options={sizeList}
-          onChange={this.sizeChange.bind(this)} /> );
-    } else {
-      disabled = true;
-      size = (<p style={{color: '#B90303'}}>สินค้าหมดค่ะ</p>);
-    }
-
     let css = {
       color: doc.css.color,
       backgroundColor: doc.css.bg_color,
@@ -124,17 +135,74 @@ class ProductDetail extends ReducerBase {
       borderLeft: '1px solid white',
     };
 
-    let price = '';
-    if (data.sale_price > 0) {
-      price = (<h4 className="product-price">ราคา: <strike>&#3647;{data.price}</strike> <span> &#3647;{data.sale_price}</span></h4>);
+    let cssOutStock = {color: '#B90303'};
+
+    let product = state.product.data;
+    let detail = state.product.detail;
+    this.product = product;
+    this.detail = detail;
+    let colorDiv = (<p style={cssOutStock}>สินค้าหมดค่ะ</p>);
+    let sizeDiv = (<p style={cssOutStock}>-</p>);
+    let disabled = true;
+
+    if (detail.color_list.length > 0) {
+      let variant;
+      let color = '';
+      let size;
+      if (detail.color) {
+        color = detail.color._id;
+        variant = product.variant_list.find(item => {
+          return item.color._id === color;
+        })
+      }
+      if (detail.size) {
+        size = detail.size._id;
+      }
+
+      colorDiv = (
+        <Select
+          clearable={false}
+          searchable={false}
+          value={color}
+          options={detail.color_list}
+          onChange={this.colorChange.bind(this)} />
+        );
+
+      if (variant && variant.list.length > 0) {
+        disabled = false;
+        this.sizes = variant.list;
+        let sizeList = variant.list.map(item => {
+          return {
+            value: item.size._id,
+            label: item.size.content.main.name,
+            clearableValue: false,
+            disabled: item.quantity===0,
+          };
+        });
+        sizeDiv = (
+          <Select
+            clearable={false}
+            searchable={false}
+            value={size}
+            options={sizeList}
+            onChange={this.sizeChange.bind(this)} />
+          );
+      } else {
+        sizeDiv = (<p style={cssOutStock}>ขนาดสินค้าหมดค่ะ</p>);
+      }
+    }
+
+    let price;
+    if (product.sale_price > 0) {
+      price = (<h4 className="product-price">ราคา: <strike>&#3647;{product.price}</strike> <span> &#3647;{product.sale_price}</span></h4>);
     } else {
-      price = (<h4 className="product-price">ราคา: &#3647;{data.price}</h4>);
+      price = (<h4 className="product-price">ราคา: &#3647;{product.price}</h4>);
     }
 
     return (
     <div className="product-info-detail">
       <div className="header">
-        <h1>{data.name}</h1>
+        <h1>{product.content.main.name}</h1>
         {price}
       </div>
       <hr/>
@@ -143,11 +211,19 @@ class ProductDetail extends ReducerBase {
         <div className="row">
           <div className="col-xs-12 col-sm-6 col-md-5">
             <div className="form-group">
-              <label>ขนาดสินค้า</label>
-              {size}
+              <label>สี</label>
+              {colorDiv}
             </div>
           </div>
 
+          <div className="col-xs-12 col-sm-6 col-md-5">
+            <div className="form-group">
+              <label>ขนาด</label>
+              {sizeDiv}
+            </div>
+          </div>
+        </div>
+        <div className="row">
           <div className="col-xs-12 col-sm-6 col-md-5">
             <div className="form-group">
               <label>จำนวนสินค้า</label>
@@ -176,28 +252,27 @@ class ProductDetail extends ReducerBase {
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="row">
           <div className="col-xs-12 col-sm-6 col-md-5">
-            <button type="button"
-              disabled={disabled}
-              style={css}
-              className="btn"
-              onClick={this.addToBag.bind(this)} >
-              ใส่ตะกร้า
-            </button>
+            <div className="form-group">
+              <label>&nbsp;</label>
+              <button type="button"
+                disabled={disabled}
+                style={css}
+                className="btn"
+                onClick={this.addToBag.bind(this)} >
+                ใส่ตะกร้า
+              </button>
+            </div>
           </div>
         </div>
 
       </div>
       <hr/>
       <div>
-        {ReactHtmlParser(data.information.value)}
+        {ReactHtmlParser(product.content.main.description)}
       </div>
     </div>
     );
   }
 }
-
-export default ProductDetail;

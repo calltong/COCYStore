@@ -3,7 +3,7 @@ import React from 'react';
 import {ReducerBase} from '../ReducerBase';
 //import {store} from '../../store';
 
-export class MyAccount extends ReducerBase {
+export default class MyAccount extends ReducerBase {
   render() {
 
     return (
@@ -17,5 +17,3 @@ export class MyAccount extends ReducerBase {
     );
   }
 }
-
-export default MyAccount;

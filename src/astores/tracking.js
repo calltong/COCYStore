@@ -1,11 +1,11 @@
+//import moment from 'moment';
 import _ from 'lodash';
-import {cookiedb} from '../utility/CookieStore';
 
 import {Reducer} from '../redux-manager';
 let instance = {
   _id: '',
   customer_id: '',
-  status: 'created',
+  status: 'order',
   promotion_id: '',
   list: [],
   summary: {
@@ -36,15 +36,13 @@ export const reducer = new Reducer({
   data: _.cloneDeep(instance),
 });
 
-reducer.register('ORDER_RESET', (state, action) => {
-  state.data = _.cloneDeep(instance);
-  cookiedb.saveOrder(state.data);
+reducer.register('TRACKING_RESET', (state, action) => {
+  state = _.cloneDeep(reducer.initial);
   return state;
 });
 
-reducer.register('ORDER_STORE', (state, action) => {
+reducer.register('TRACKING_STORE', (state, action) => {
   let {data} = action.params;
   state.data = data;
-  cookiedb.saveOrder(data);
   return state;
 });

@@ -4,6 +4,7 @@ import ImageGallery from 'react-image-gallery';
 import {ReducerBase} from '../ReducerBase';
 import {store} from '../../store';
 import {manager} from '../../utility/Manager';
+import {ga} from '../../utility/ga';
 import {actions} from '../../actions/Action';
 
 import Builder from '../content/Builder';
@@ -11,36 +12,32 @@ import Builder from '../content/Builder';
 import ProductDetail from './ProductDetail';
 import OrderUpdate from './OrderUpdate';
 
-export class ProductInfo extends ReducerBase {
+export default class ProductInfo extends ReducerBase {
   componentDidMount() {
     let id = this.props.params.id;
     actions.product.getItem(id);
-    actions.tracking.view();
-    manager.SetOnTop();
     actions.page.getProduct();
+    ga.view();
+    manager.SetOnTop();
   }
 
   componentWillReceiveProps(nextProps) {
     let id = nextProps.params.id;
     actions.product.getItem(id);
+    ga.view();
     manager.SetOnTop();
-  }
-
-  selectImage(index) {
-    actions.product.SetImage(index);
-    actions.tracking.action('Product Detail', 'Select Image', `${index}`);
   }
 
   render() {
     let state = store.getState();
     let doc = state.page.product;
     let order = state.order.data;
-    let product = state.product;
-    let data = product.data;
-    let images = data.image_list.map(item => {
+    let list = state.product.detail.image_list;
+
+    let images = list.map(item => {
       return ({
-        original: item.data,
-        thumbnail: item.data,
+        original: item,
+        thumbnail: item,
       });
     });
     return (
@@ -70,5 +67,3 @@ export class ProductInfo extends ReducerBase {
     );
   }
 }
-
-export default ProductInfo;

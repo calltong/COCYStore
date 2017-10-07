@@ -4,20 +4,32 @@ import {actions} from '../../actions/Action';
 
 import {ReducerBase} from '../ReducerBase';
 import {store} from '../../store';
-import {manager} from '../../utility/Manager';
+import {ga} from '../../utility/ga';
+import {tag} from '../../utility/display';
 
 class Display extends React.Component {
 
   render() {
-    let data = this.props.data;
-    let price = (<p className="price">&#3647;{data.price}</p>);
-    if (data.sale_price > 0) {
-      price = (<p className="price"><strike>&#3647;{data.price}</strike>&nbsp;&nbsp;<span> &#3647;{data.sale_price}</span></p>);
+    let product = this.props.data;
+    let price;
+    if (product.sale_price > 0) {
+      price = (<p className="price"><strike>&#3647;{product.price}</strike>&nbsp;&nbsp;<span> &#3647;{product.sale_price}</span></p>);
+    } else {
+      price = (<p className="price">&#3647;{product.price}</p>);
     }
     let list = [];
-    for (let item of data.stock_list) {
-      if (item.quantity !== 0) {
-        list.push((<div className="product-size" key={item.size.code}>{item.size.code}</div>));
+    let sizes = [];
+    for (let item of product.variant_list) {
+      for (let color of item.list) {
+        if (color.quantity !== 0) {
+          let have = sizes.find(size => {
+            return size === color.size.code;
+          });
+          if (have === undefined) {
+            list.push((<div className="product-size" key={color.size.code}>{color.size.code}</div>));
+            sizes.push(color.size.code);
+          }
+        }
       }
     }
 
@@ -25,11 +37,12 @@ class Display extends React.Component {
       list = (<div>out of stock</div>);
     }
 
+    let name = product.content.main.name;
     return (
       <div className="product-list-item">
-        <Link to={`/product/${data._id}`}>
-          <img src={this.props.image} role="presentation"/>
-          <p className="name">{data.name}</p>
+        <Link to={`/product/${product._id}/${tag(name)}`}>
+          <img src={product.image} role="presentation"/>
+          <p className="name">{name}</p>
         </Link>
         {price}
         {list}
@@ -38,26 +51,25 @@ class Display extends React.Component {
   }
 }
 
-export class ProductList extends ReducerBase {
+export default class ProductList extends ReducerBase {
   constructor(props) {
     super(props);
     this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
-    let type = this.props.location.query.type;
-    this.getData(type);
-    actions.tracking.view();
+    let type = this.props.params.type;
+    let value = this.props.params.value;
+    actions.product.getList(type, value);
+    ga.view();
     window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillReceiveProps(nextProps) {
-    let type = nextProps.location.query.type;
-    this.getData(type);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    let type = nextProps.params.type;
+    let value = nextProps.params.value;
+    actions.product.getList(type, value);
+    ga.view();
   }
 
   handleScroll() {
@@ -74,33 +86,18 @@ export class ProductList extends ReducerBase {
     }
   }
 
-  getData(type) {
-    let product = store.getState().product;
-    let condition = product.page.condition;
-    if (condition.type !== type) {
-      actions.product.getList(type);
-      manager.SetOnTop();
-    }
-  }
-
   onView() {
-    let type = this.props.location.query.type;
-    actions.product.getNextList(type);
-    actions.tracking.action('Product List', 'Get Next Product', 'Product');
+    let type = this.props.params.type;
+    let value = this.props.params.value;
+    actions.product.getNextList(type, value);
   }
 
   render() {
     let product = store.getState().product;
-    let index = 0;
-
-    let list = product.product_list.map(item => {
-      let img = '';
-      if (item.image_list.length > 0) {
-        img = item.image_list[0].data;
-      }
+    let list = product.product_list.map((item, index) => {
       return (
-        <div className="col-xs-6 col-sm-4 col-md-3 product-list-col" key={index++}>
-          <Display image={img} data={item}/>
+        <div className="col-xs-6 col-sm-4 col-md-3 product-list-col" key={index}>
+          <Display data={item}/>
         </div>
       );
     });
@@ -125,5 +122,3 @@ export class ProductList extends ReducerBase {
     );
   }
 }
-
-export default ProductList;

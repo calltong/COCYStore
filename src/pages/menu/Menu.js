@@ -1,31 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {browserHistory} from 'react-router';
 
 import {ReducerBase} from '../ReducerBase';
 import {store} from '../../store';
 import {manager} from '../../utility/Manager';
+import {tag} from '../../utility/display';
 
-export class Menu extends ReducerBase {
-  changeMenu(type, value) {
-    if (type === 'category') {
-      if (value === '') {
-        browserHistory.push('/products');
-      } else {
-        browserHistory.push(`/products?type=${value}`);
-      }
-    }
-
-    manager.CloseMenu('#header-bar');
-  }
-
-  onOrder() {
-    browserHistory.push('/order');
-    manager.CloseMenu('#header-bar');
-  }
-
-  onContact() {
-    browserHistory.push('/howorder');
+export default class Menu extends ReducerBase {
+  changeMenu(name) {
     manager.CloseMenu('#header-bar');
   }
 
@@ -35,7 +17,7 @@ export class Menu extends ReducerBase {
 
   render() {
     let order = store.getState().order.data;
-    let len = order.display_list.length;
+    let len = order.list.length;
     let doc = store.getState().page.menu;
 
     let menu = doc.data.menu;
@@ -52,21 +34,38 @@ export class Menu extends ReducerBase {
       fontSize: menu.brand.css.size,
     };
 
+    let cssBag = {
+      color: 'black',
+      backgroundColor: 'white',
+    };
+
     let list = menu.list.map((item, index) => {
+      if (item.value === undefined || item.value === '') {
+        item.value = 'all';
+      }
+      let name = tag(item.name);
+      let path = `/product-list/${item.type}/${item.value}/${name}`;
       return (
         <li key={index}>
-          <a style={css} onClick={this.changeMenu.bind(this, item.type, item.value)} >
+          <Link
+            style={css}
+            to={path}
+            onClick={this.changeMenu.bind(this, item.name)} >
             {item.name}
-          </a>
+          </Link>
         </li>
       );
     });
 
     return (
       <nav style={css} className="navbar navbar-fixed-top" role="navigation">
-        <div className="container">
-          <div className="menu-header">
-            <button type="button" className="navbar-toggle" style={css}>
+        <div className="container" >
+          <div className="navbar-header">
+            <button
+              type="button"
+              style={css}
+              className="navbar-toggle"
+              onClick={this.toggleMenu.bind(this)} >
               <span className="sr-only">Menu</span>
               <span className="icon-bar"/>
               <span className="icon-bar"/>
@@ -82,15 +81,24 @@ export class Menu extends ReducerBase {
 
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <a onClick={this.onOrder.bind(this)} style={css} >
-                  <i className="fa fa-shopping-bag"> {len}</i>
-                </a>
+                <Link
+                  style={css}
+                  className="menu-bag"
+                  to="/order"
+                  onClick={this.changeMenu.bind(this, 'order')} >
+                  <i className="fa fa-shopping-bag" />
+                  <span style={cssBag} className="menu-bag-number">{len}</span>
+                </Link>
               </li>
 
               <li>
-                <a onClick={this.onContact.bind(this)} style={css}>
-                  <i className="fa fa-question-circle-o"> Help</i>
-                </a>
+                <Link
+                  style={css}
+                  className="menu-help"
+                  to="/about-us"
+                  onClick={this.changeMenu.bind(this, 'about-us')}>
+                  <i className="fa fa-question-circle-o"></i>
+                </Link>
               </li>
             </ul>
           </div>
@@ -99,5 +107,3 @@ export class Menu extends ReducerBase {
     );
   }
 }
-
-export default Menu;

@@ -27,10 +27,8 @@ class Manager {
 
   loadOrder(data) {
     if (data.order) {
-      if (data.order.id && data.order.id !== '') {
-        actions.order.getItem(data.order.id);
-      } else if (data.order.list.length !== 0) {
-        actions.order.reverseOrder(data);
+      if (data.order.list && data.order.list.length !== 0) {
+        actions.order.setItemList(data.order.list)
       }
     }
   }

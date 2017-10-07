@@ -2,10 +2,12 @@ import React from 'react';
 import {ReducerBase} from '../ReducerBase';
 import {store} from '../../store';
 import {actions} from '../../actions/Action';
+import {ga} from '../../utility/ga';
 
-export class OrderCondition extends ReducerBase {
+export default class OrderCondition extends ReducerBase {
   componentDidMount() {
     actions.page.getOrderCondition();
+    ga.view();
   }
 
   render() {
@@ -28,5 +30,3 @@ export class OrderCondition extends ReducerBase {
     );
   }
 }
-
-export default OrderCondition;
