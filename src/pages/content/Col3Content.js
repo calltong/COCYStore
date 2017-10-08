@@ -1,25 +1,34 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {browserHistory} from 'react-router';
+import {createLink} from '../../utility/display';
 
 class Display extends React.Component {
-  onGotoPage(id) {
-    browserHistory.push(`/product/${id}`);
+  onGotoPage(item) {
+
   }
 
   render() {
-    let data = this.props.data;
+    let item = this.props.data;
+    let path = createLink(item);
+    let lik;
+    if (path) {
+      lik = (
+        <Link to={path}>
+          <img src={item.preview} role="presentation" className="col3-content-img" />
+        </Link>
+      );
+    } else {
+      lik = (<img src={item.preview} role="presentation" className="col3-content-img" />);
+    }
     return (
       <div className="col3-content-item">
-        <Link onClick={this.onGotoPage.bind(this, data.value)}>
-          <img src={data.preview} role="presentation" className="col3-content-img" />
-        </Link>
+        {lik}
       </div>
     );
   }
 }
 
-export class Col3Content extends React.Component {
+export default class Col3Content extends React.Component {
 
   render() {
     let content = this.props.content;
@@ -52,5 +61,3 @@ export class Col3Content extends React.Component {
     );
   }
 }
-
-export default Col3Content;

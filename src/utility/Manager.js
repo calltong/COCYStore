@@ -10,7 +10,6 @@ import {actions} from '../actions/Action';
 class Manager {
   initial() {
     let data = cookiedb.loadData();
-    this.loadCustomer(data);
     this.loadOrder(data);
     /*
     let me = this;

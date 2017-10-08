@@ -5,7 +5,7 @@ import {actions} from '../../actions/Action';
 import {ReducerBase} from '../ReducerBase';
 import {store} from '../../store';
 import {ga} from '../../utility/ga';
-import {tag} from '../../utility/display';
+import {productPath} from '../../utility/display';
 
 class Display extends React.Component {
 
@@ -40,7 +40,7 @@ class Display extends React.Component {
     let name = product.content.main.name;
     return (
       <div className="product-list-item">
-        <Link to={`/product/${product._id}/${tag(name)}`}>
+        <Link to={productPath(product._id, name)}>
           <img src={product.image} role="presentation"/>
           <p className="name">{name}</p>
         </Link>

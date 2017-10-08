@@ -1,22 +1,31 @@
 import React from 'react';
 import {Link} from 'react-router';
-import {browserHistory} from 'react-router';
+import {createLink} from '../../utility/display';
 
-export class BlockContent extends React.Component {
+export default class BlockContent extends React.Component {
+  gotoPage(item) {
 
-  onGotoPage(id) {
-    browserHistory.push(`/product/${id}`);
   }
 
   render() {
     let content = this.props.content;
-
     let list = content.data.list.map((item, index) => {
+      let path = createLink(item);
+
+      let lik;
+      if (path) {
+        lik = (
+          <Link to={path}>
+            <img src={item.preview} role="presentation" className="block-content-img" />
+          </Link>
+        );
+      } else {
+        lik = (<img src={item.preview} role="presentation" className="block-content-img" />);
+      }
+
       return (
       <div className="col-xs-3 col-sm-2 col-md-2" style={{paddingLeft:0, paddingRight:0}} key={index}>
-        <Link onClick={this.onGotoPage.bind(this, item.value)}>
-          <img src={item.preview} role="presentation" className="block-content-img" />
-        </Link>
+        {lik}
       </div>
       );
     });
@@ -35,5 +44,3 @@ export class BlockContent extends React.Component {
     );
   }
 }
-
-export default BlockContent;

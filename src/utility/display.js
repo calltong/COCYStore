@@ -22,3 +22,35 @@ export function tag(val) {
     return val.split(' ').join('-');
   }
 }
+
+export function createLink(item) {
+  let path;
+  switch (item.type) {
+    case 'product':
+      path = productPath(item.value, item.name);
+      break;
+    case 'category':
+      path = productListPath(item.value, item.name);
+      break;
+    default:
+  }
+  return path;
+}
+
+export function productPath(id, name) {
+  if (name === undefined) {
+    name = '-';
+  }
+  return `/product/${id}/${tag(name)}`
+}
+
+export function productListPath(type, id, name) {
+  if (name === undefined) {
+    name = '-';
+  }
+
+  if (id === undefined || id === '') {
+    id = 'all';
+  }
+  return `/product-list/${type}/${id}/${name}`;
+}

@@ -36,8 +36,18 @@
   font-size: 22px;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 425px) {
   .navbar-fixed-top {
     margin-right: 0;
+  }
+
+  .navbar-nav {
+    margin-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .navbar-fixed-top .navbar-collapse {
+    max-height: 400px;
   }
 }

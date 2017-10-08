@@ -18,9 +18,6 @@ import CheckoutPayment from './pages/order/CheckoutPayment';
 
 import OrderAddress from './pages/tracking/OrderAddress';
 import OrderTracking from './pages/tracking/OrderTracking';
-import {config} from './config';
-
-config.setup(window.location.host);
 
 ReactDOM.render((
    <Router history={browserHistory}>

@@ -1,21 +1,36 @@
 import React from 'react';
 import {Link} from 'react-router';
+import {createLink} from '../../utility/display';
 
 class Display extends React.Component {
   render() {
-    let data = this.props.data;
+    let item = this.props.data;
+    let path = createLink(item);
+    let lik;
+    if (path) {
+      lik = (
+        <Link to={path}>
+          <img src={item.preview} role="presentation" className="col4-content-img" />
+          <p className="col4-content-text">{item.name}</p>
+        </Link>
+      );
+    } else {
+      lik = (
+        <div>
+          <img src={item.preview} role="presentation" className="col4-content-img" />
+          <p className="col4-content-text">{item.name}</p>
+        </div>
+      );
+    }
     return (
       <div className="col4-content-item">
-        <Link to={`/products?type=${data.value}`}>
-          <img src={data.preview} role="presentation" className="col4-content-img" />
-          <p className="col4-content-text">{data.name}</p>
-        </Link>
+        {lik}
       </div>
     );
   }
 }
 
-export class Col4Content extends React.Component {
+export default class Col4Content extends React.Component {
 
   render() {
     let content = this.props.content;
@@ -45,5 +60,3 @@ export class Col4Content extends React.Component {
     );
   }
 }
-
-export default Col4Content;

@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 import {ReducerBase} from '../ReducerBase';
 import {store} from '../../store';
 import {manager} from '../../utility/Manager';
-import {tag} from '../../utility/display';
+import {productListPath} from '../../utility/display';
 
 export default class Menu extends ReducerBase {
   changeMenu(name) {
@@ -39,12 +39,17 @@ export default class Menu extends ReducerBase {
       backgroundColor: 'white',
     };
 
+    let cssMobileMenu = {
+      border: `1px solid ${menu.css.color}`,
+      backgroundColor: menu.css.bg_color,
+    };
+
+    let cssMobileItem = {
+      backgroundColor: menu.css.color,
+    };
+
     let list = menu.list.map((item, index) => {
-      if (item.value === undefined || item.value === '') {
-        item.value = 'all';
-      }
-      let name = tag(item.name);
-      let path = `/product-list/${item.type}/${item.value}/${name}`;
+      let path = productListPath(item.type, item.value, item.name);
       return (
         <li key={index}>
           <Link
@@ -63,13 +68,13 @@ export default class Menu extends ReducerBase {
           <div className="navbar-header">
             <button
               type="button"
-              style={css}
+              style={cssMobileMenu}
               className="navbar-toggle"
               onClick={this.toggleMenu.bind(this)} >
               <span className="sr-only">Menu</span>
-              <span className="icon-bar"/>
-              <span className="icon-bar"/>
-              <span className="icon-bar"/>
+              <span style={cssMobileItem} className="icon-bar"/>
+              <span style={cssMobileItem} className="icon-bar"/>
+              <span style={cssMobileItem} className="icon-bar"/>
             </button>
             <Link to="/home" className="navbar-brand" style={cssBrand}>{menu.brand.name}</Link>
           </div>

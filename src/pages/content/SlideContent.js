@@ -1,7 +1,6 @@
 import React from 'react';
-//import {Link} from 'react-router'
 
-export class SlideSection extends React.Component {
+export default class SlideSection extends React.Component {
   render() {
     let index = 0;
     let content = this.props.content;
@@ -45,5 +44,3 @@ export class SlideSection extends React.Component {
     );
   }
 }
-
-export default SlideSection;
