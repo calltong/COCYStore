@@ -1,17 +1,16 @@
 import React from 'react';
-import {ReducerBase} from '../ReducerBase';
-import {store} from '../../store';
-import {actions} from '../../actions/Action';
+import {observer, inject} from 'mobx-react';
+
 import {ga} from '../../utility/ga';
 
-export default class HowToBuy extends ReducerBase {
+export class HowToBuy extends React.Component {
   componentDidMount() {
-    actions.page.getHowBuy();
+    this.props.page.getHowBuy();
     ga.view();
   }
 
   render() {
-    let doc = store.getState().page.how_buy;
+    let doc = this.props.page.toJS().how_buy;
     let list = doc.data.list.map((item, index) => {
       return (
         <div className="col-xs-6 col-sm-6 col-md-3" key={index}>
@@ -25,12 +24,12 @@ export default class HowToBuy extends ReducerBase {
 
     return (
       <div className="tobuy-page">
-
         <div className="row">
           {list}
         </div>
-
       </div>
     );
   }
 }
+
+export default inject('page')(observer(HowToBuy));

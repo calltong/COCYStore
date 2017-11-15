@@ -1,17 +1,15 @@
 import React from 'react';
-import {ReducerBase} from '../ReducerBase';
-import {store} from '../../store';
-import {actions} from '../../actions/Action';
+import {observer, inject} from 'mobx-react';
 import {ga} from '../../utility/ga';
 
-export default class OrderCondition extends ReducerBase {
+export class OrderCondition extends React.Component {
   componentDidMount() {
-    actions.page.getOrderCondition();
+    this.props.page.getOrderCondition();
     ga.view();
   }
 
   render() {
-    let doc = store.getState().page.order_condition;
+    let doc = this.props.page.toJS().order_condition;
     let conditions = doc.data.list.map((item, index) => {
       return (<li key={index}>{item.title}</li>);
     });
@@ -30,3 +28,5 @@ export default class OrderCondition extends ReducerBase {
     );
   }
 }
+
+export default inject('page')(observer(OrderCondition));

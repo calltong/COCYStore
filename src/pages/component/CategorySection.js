@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 
 class Display extends React.Component {
   render() {
@@ -15,7 +15,7 @@ class Display extends React.Component {
   }
 }
 
-export class CategorySection extends React.Component {
+export default class CategorySection extends React.Component {
 
   render() {
     let content = this.props.content;
@@ -42,5 +42,3 @@ export class CategorySection extends React.Component {
     );
   }
 }
-
-export default CategorySection;

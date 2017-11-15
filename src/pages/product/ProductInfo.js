@@ -1,38 +1,31 @@
 import React from 'react';
 import ImageGallery from 'react-image-gallery';
+import {observer, inject} from 'mobx-react';
 
-import {ReducerBase} from '../ReducerBase';
-import {store} from '../../store';
-import {manager} from '../../utility/Manager';
 import {ga} from '../../utility/ga';
-import {actions} from '../../actions/Action';
 
 import Builder from '../content/Builder';
-
 import ProductDetail from './ProductDetail';
 import OrderUpdate from './OrderUpdate';
 
-export default class ProductInfo extends ReducerBase {
+export class ProductInfo extends React.Component {
   componentDidMount() {
-    let id = this.props.params.id;
-    actions.product.getItem(id);
-    actions.page.getProduct();
+    let id = this.props.match.params.id;
+    this.props.product.getItem(id);
+    this.props.page.getProduct();
     ga.view();
-    manager.SetOnTop();
   }
 
   componentWillReceiveProps(nextProps) {
-    let id = nextProps.params.id;
-    actions.product.getItem(id);
+    let id = nextProps.match.params.id;
+    this.props.product.getItem(id);
     ga.view();
-    manager.SetOnTop();
   }
 
   render() {
-    let state = store.getState();
-    let doc = state.page.product;
-    let order = state.order.data;
-    let list = state.product.detail.image_list;
+    let doc = this.props.page.toJS().product;
+    //let order = state.order.data;
+    let list = this.props.product.toJS().detail.image_list;
 
     let images = list.map(item => {
       return ({
@@ -62,8 +55,10 @@ export default class ProductInfo extends ReducerBase {
         <hr/>
 
         <Builder list={doc.data.list} />
-        <OrderUpdate data={order}/>
+        <OrderUpdate />
       </div>
     );
   }
 }
+
+export default inject('product', 'page')(observer(ProductInfo));

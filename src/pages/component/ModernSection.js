@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import {browserHistory} from 'react-router';
 
 class Display extends React.Component {
@@ -19,7 +19,7 @@ class Display extends React.Component {
   }
 }
 
-export class ModernSection extends React.Component {
+export default class ModernSection extends React.Component {
 
   render() {
     let content = this.props.content;
@@ -52,5 +52,3 @@ export class ModernSection extends React.Component {
     );
   }
 }
-
-export default ModernSection;

@@ -1,9 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router';
-import {actions} from '../../actions/Action';
+import {Link} from 'react-router-dom';
+import {observer, inject} from 'mobx-react';
 
-import {ReducerBase} from '../ReducerBase';
-import {store} from '../../store';
 import {ga} from '../../utility/ga';
 import {productPath} from '../../utility/display';
 
@@ -51,29 +49,31 @@ class Display extends React.Component {
   }
 }
 
-export default class ProductList extends ReducerBase {
+export class ProductList extends React.Component {
   constructor(props) {
     super(props);
     this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
-    let type = this.props.params.type;
-    let value = this.props.params.value;
-    actions.product.getList(type, value);
+    let type = this.props.match.params.type;
+    let value = this.props.match.params.value;
+
+    this.props.product.getList(type, value);
     ga.view();
     window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillReceiveProps(nextProps) {
-    let type = nextProps.params.type;
-    let value = nextProps.params.value;
-    actions.product.getList(type, value);
+    let type = nextProps.match.params.type;
+    let value = nextProps.match.params.value;
+
+    this.props.product.getList(type, value);
     ga.view();
   }
 
   handleScroll() {
-    let product = store.getState().product;
+    let product = this.props.product.toJS();
     if (product.page.next === 'ready') {
       const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
       const body = document.body;
@@ -87,13 +87,13 @@ export default class ProductList extends ReducerBase {
   }
 
   onView() {
-    let type = this.props.params.type;
-    let value = this.props.params.value;
-    actions.product.getNextList(type, value);
+    let type = this.props.match.params.type;
+    let value = this.props.match.params.value;
+    this.props.product.getNextList(type, value);
   }
 
   render() {
-    let product = store.getState().product;
+    let product = this.props.product.toJS();
     let list = product.product_list.map((item, index) => {
       return (
         <div className="col-xs-6 col-sm-4 col-md-3 product-list-col" key={index}>
@@ -122,3 +122,5 @@ export default class ProductList extends ReducerBase {
     );
   }
 }
+
+export default inject('product')(observer(ProductList));

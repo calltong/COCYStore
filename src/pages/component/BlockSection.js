@@ -1,11 +1,10 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 
 import {browserHistory} from 'react-router';
-//import {store} from '../../store';
 import EnButton from '../forms/EnButton';
 
-export class BlockSection extends React.Component {
+export default class BlockSection extends React.Component {
 
   onGotoPage(id) {
     browserHistory.push(`/product/${id}`);
@@ -42,5 +41,3 @@ export class BlockSection extends React.Component {
     );
   }
 }
-
-export default BlockSection;

@@ -5,7 +5,7 @@ import Social from './footer/Social';
 import TextList from './footer/TextList';
 import Information from './footer/Information';
 
-export class Footer extends React.Component {
+export default class Footer extends React.Component {
   render() {
     let content = this.props.content;
     let list = content.list.map((item, index) => {
@@ -50,5 +50,3 @@ export class Footer extends React.Component {
     );
   }
 }
-
-export default Footer;

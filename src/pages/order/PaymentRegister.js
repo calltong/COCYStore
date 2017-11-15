@@ -1,19 +1,17 @@
 import React from 'react';
 import swal from 'sweetalert';
-
-import {ReducerBase} from '../ReducerBase';
-import {store} from '../../store';
-import {actions} from '../../actions/Action';
+import {observer, inject} from 'mobx-react';
 
 import EnImageSelector from '../forms/EnImageSelector';
 import EnButton from '../forms/EnButton';
 
-export default class PaymentRegister extends ReducerBase {
+export class PaymentRegister extends React.Component {
   componentDidMount() {
-    actions.page.getPayment();
+    this.props.page.getPayment();
   }
 
   onDropImage(files) {
+    let order  = this.props.order;
     let reader = new FileReader();
     reader.onload = function(event) {
       let image = new Image();
@@ -21,8 +19,7 @@ export default class PaymentRegister extends ReducerBase {
       image.onload = function() {
         // access image size here
         let data = event.target.result;
-        actions.order.setSlip(data);
-        //store.update('ORDER_SET_SLIP', {data});
+        order.setSlip(data);
       };
     };
     reader.readAsDataURL(files[0]);
@@ -33,7 +30,7 @@ export default class PaymentRegister extends ReducerBase {
   }
 
   onNext() {
-    let data = this.props.data;
+    let data = this.props.order.toJS().data;
     if (data.payment.data.slip === '') {
       swal({
         title: 'รายการชำระสินค้า',
@@ -62,9 +59,8 @@ export default class PaymentRegister extends ReducerBase {
   }
 
   render() {
-    let state = store.getState();
-    let payment = state.page.payment;
-    let data = this.props.data;
+    let payment = this.props.page.toJS().payment;
+    let data = this.props.order.toJS().data;
     let list = payment.data.list.map((item, index) => {
       return (
         <div className="row" key={index} >
@@ -124,3 +120,5 @@ export default class PaymentRegister extends ReducerBase {
     );
   }
 }
+
+export default inject('order', 'page')(observer(PaymentRegister));

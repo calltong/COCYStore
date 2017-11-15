@@ -1,24 +1,20 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
+import {observer, inject} from 'mobx-react';
 
-import {actions} from '../../actions/Action';
-import {store} from '../../store';
-import {manager} from '../../utility/Manager';
 import {ga} from '../../utility/ga';
-import {ReducerBase} from '../ReducerBase';
 
 import OrderPanel from './OrderPanel';
 import OrderMenu from './OrderMenu';
 import PaymentRegister from './PaymentRegister';
 
-export class CheckoutPayment extends ReducerBase {
+export class CheckoutPayment extends React.Component {
   componentDidMount() {
     ga.view();
-    manager.SetOnTop();
   }
 
   checkout() {
-    actions.order.payment();
+    this.props.order.payment();
     ga.action('Checkout', 'Confirm Payment', 'Payment');
   }
 
@@ -28,7 +24,7 @@ export class CheckoutPayment extends ReducerBase {
   }
 
   render() {
-    let order = store.getState().order.data;
+    let order = this.props.order.toJS().data;
     return (
     <div className="container summary-form">
       <div className="row">
@@ -55,4 +51,4 @@ export class CheckoutPayment extends ReducerBase {
   }
 }
 
-export default CheckoutPayment;
+export default inject('order')(observer(CheckoutPayment));

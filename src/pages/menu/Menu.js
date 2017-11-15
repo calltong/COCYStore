@@ -1,12 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router-dom';
+import {observer, inject} from 'mobx-react';
 
-import {ReducerBase} from '../ReducerBase';
-import {store} from '../../store';
 import {manager} from '../../utility/Manager';
 import {productListPath} from '../../utility/display';
 
-export default class Menu extends ReducerBase {
+class Menu extends React.Component {
   changeMenu(name) {
     manager.CloseMenu('#header-bar');
   }
@@ -16,10 +15,9 @@ export default class Menu extends ReducerBase {
   }
 
   render() {
-    let order = store.getState().order.data;
+    let order = this.props.order.toJS().data;
     let len = order.list.length;
-    let doc = store.getState().page.menu;
-
+    let doc = this.props.page.toJS().menu;
     let menu = doc.data.menu;
     let css = {
       color: menu.css.color,
@@ -112,3 +110,5 @@ export default class Menu extends ReducerBase {
     );
   }
 }
+
+export default inject('page', 'order')(observer(Menu));

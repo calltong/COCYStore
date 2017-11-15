@@ -1,25 +1,24 @@
 import React from 'react';
+import {observer, inject} from 'mobx-react';
 
-import {actions} from '../../actions/Action';
 import {ga} from '../../utility/ga';
-import {store} from '../../store';
-import {ReducerBase} from '../ReducerBase';
+
 import OrderPanel from '../order/OrderPanel';
 import OrderStatus from '../order/OrderStatus';
 import OrderAddress from '../order/OrderAddress';
 
-export default class OrderTracking extends ReducerBase {
+export class OrderTracking extends React.Component {
   componentDidMount() {
     ga.view();
-    let id = this.props.params.id;
-    let data = store.getState().tracking.data;
+    let id = this.props.match.params.id;
+    let data = this.props.tracking.toJS().data;
     if (data._id !== id) {
-      actions.tracking.getItem(id);
+      this.props.tracking.getItem(id);
     }
   }
 
   render() {
-    let tracking = store.getState().tracking.data;
+    let tracking = this.props.tracking.toJS().data;
     return (
     <div className="container summary-form">
       <div className="row">
@@ -41,3 +40,5 @@ export default class OrderTracking extends ReducerBase {
     );
   }
 }
+
+export default inject('tracking')(observer(OrderTracking));

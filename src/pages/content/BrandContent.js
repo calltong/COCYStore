@@ -1,4 +1,5 @@
 import React from 'react';
+
 export default class BrandContent extends React.Component {
   render() {
     let content = this.props.content.data;

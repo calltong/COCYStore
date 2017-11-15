@@ -1,25 +1,21 @@
 import React from 'react';
 import swal from 'sweetalert';
+import {observer, inject} from 'mobx-react';
 
-import {actions} from '../../actions/Action';
-import {store} from '../../store';
-import {manager} from '../../utility/Manager';
 import {ga} from '../../utility/ga';
-import {ReducerBase} from '../ReducerBase';
 import EnButton from '../forms/EnButton';
 
 import CustomerInfo from '../customer/CustomerInfo';
 import OrderMenu from '../order/OrderMenu';
 
-export default class OrderAddress extends ReducerBase {
+export class OrderAddress extends React.Component {
   componentDidMount() {
     ga.view();
-    manager.SetOnTop();
 
-    let id = this.props.params.id;
-    let data = store.getState().tracking.data;
+    let id = this.props.match.params.id;
+    let data = this.props.tracking.toJS().data;
     if (data._id !== id) {
-      actions.tracking.getItem(id);
+      this.props.tracking.getItem(id);
     }
   }
 
@@ -45,17 +41,17 @@ export default class OrderAddress extends ReducerBase {
         showConfirmButton: true,
       });
     } else {
-      actions.tracking.saveShipping();
+      this.props.tracking.saveShipping();
       ga.action('Checkout', 'Confirm Address', 'Customer');
     }
   }
 
   update(data) {
-    actions.tracking.setShipping(data);
+    this.props.tracking.setShipping(data);
   }
 
   render() {
-    let data = store.getState().tracking.data;
+    let data = this.props.tracking.toJS().data;
     this.data = data;
     return (
     <div className="container summary-form">
@@ -94,3 +90,5 @@ export default class OrderAddress extends ReducerBase {
     );
   }
 }
+
+export default inject('tracking')(observer(OrderAddress));

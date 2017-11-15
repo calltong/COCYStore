@@ -1,21 +1,20 @@
-import React from 'react';
-import {ReducerBase} from './ReducerBase';
-import {store} from '../store';
-import {actions} from '../actions/Action';
-import {manager} from '../utility/Manager';
-import {ga} from '../utility/ga';
+import React, { Component } from 'react';
+import {observer, inject} from 'mobx-react';
+
+//import {manager} from '../utility/Manager';
+import { ga } from '../utility/ga';
 
 import Builder from './content/Builder';
 
-export class Home extends ReducerBase {
+export class Home extends Component {
   componentDidMount() {
-    actions.page.getHome();
+    this.props.page.getHome();
     ga.view('Home Page');
-    manager.SetOnTop();
+    console.log('home page');
   }
 
   render() {
-    let doc = store.getState().page.home;
+    let doc = this.props.page.toJS().home;
     let list = doc.data.list !== undefined ? doc.data.list : [];
     return (
       <div>
@@ -25,4 +24,4 @@ export class Home extends ReducerBase {
   }
 }
 
-export default Home;
+export default inject('page')(observer(Home));

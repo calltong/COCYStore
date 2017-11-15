@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
+
 import {createLink} from '../../utility/display';
 
 export default class BlockContent extends React.Component {

@@ -1,27 +1,27 @@
 import React from 'react';
+import {observer, inject} from 'mobx-react';
 
-import {actions} from '../../actions/Action';
 import {money} from '../../utility/display';
 import {ga} from '../../utility/ga';
 
-export default class OrderList extends React.Component {
+export class OrderList extends React.Component {
   onMinus(index) {
-    actions.order.downQuantity(index);
+    this.props.order.downQuantity(index);
     ga.action('Order List', 'Decrease', 'Order');
   }
 
   onPlus(index) {
-    actions.order.upQuantity(index);
+    this.props.order.upQuantity(index);
     ga.action('Order List', 'Increase', 'Order');
   }
 
   onRemove(index) {
-    actions.order.removeFromBag(index);
+    this.props.order.removeFromBag(index);
     ga.action('Order List', 'Remove', 'Order');
   }
 
   render() {
-    let order = this.props.data;
+    let order = this.props.order.toJS().data;
     let visible = false;
     if (order.status === 'order' || order.status === 'payment') {
       visible = true;
@@ -118,3 +118,5 @@ export default class OrderList extends React.Component {
     );
   }
 }
+
+export default inject('order')(observer(OrderList));

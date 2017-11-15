@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {browserHistory} from 'react-router';
+
 import {manager} from '../../utility/Manager';
 import OrderList from '../order/OrderList';
 
-export class OrderUpdate extends Component {
+export default class OrderUpdate extends Component {
 
   onContinues() {
     manager.ClosePanel('#OrderUpdate');
@@ -11,11 +12,10 @@ export class OrderUpdate extends Component {
 
   onCheckout() {
     manager.ClosePanel('#OrderUpdate');
-    browserHistory.push('/Order');
+    browserHistory.push('/order');
   }
 
   render() {
-    let data = this.props.data;
     return (
       <div id="OrderUpdate" className="modal fade" tabIndex="-1" role="dialog">
         <div className="modal-dialog order-dialog" role="document">
@@ -25,7 +25,7 @@ export class OrderUpdate extends Component {
                 รายการสินค้า
               </div>
               <div className="panel-body">
-                <OrderList data={data}/>
+                <OrderList />
               </div>
               <div className="panel-footer">
                 <div className="col-sm-6 col-md-4">
@@ -52,5 +52,3 @@ export class OrderUpdate extends Component {
     );
   }
 }
-
-export default OrderUpdate;

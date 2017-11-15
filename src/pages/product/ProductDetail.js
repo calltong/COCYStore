@@ -2,14 +2,12 @@ import React from 'react';
 import ReactHtmlParser from 'react-html-parser';
 import Select from 'react-select';
 import swal from 'sweetalert';
+import {observer, inject} from 'mobx-react';
 
-import {ReducerBase} from '../ReducerBase';
-import {store} from '../../store';
-import {actions} from '../../actions/Action';
 import {manager} from '../../utility/Manager';
 import {ga} from '../../utility/ga';
 
-export default class ProductDetail extends ReducerBase {
+export class ProductDetail extends React.Component {
   colorChange(val) {
     let variant = this.product.variant_list.find(item => {
       return item.color._id === val.value;
@@ -20,10 +18,10 @@ export default class ProductDetail extends ReducerBase {
       if (variant.list.length > 0) {
         size = variant.list[0].size;
       }
-      actions.product.SetColor(variant.color, size, variant.image_list);
+      this.props.product.SetColor(variant.color, size, variant.image_list);
       name = variant.color.content.main.name;
     } else {
-      actions.product.SetColor(undefined, undefined, this.detail.all_image);
+      this.props.product.SetColor(undefined, undefined, this.detail.all_image);
       name = 'เลือกทั้งหมด';
     }
     ga.action('Product', 'Select Color', `${name}`);
@@ -34,24 +32,23 @@ export default class ProductDetail extends ReducerBase {
       return item.size._id === val.value;
     });
 
-    actions.product.SetSize(stock.size);
+    this.props.product.SetSize(stock.size);
     ga.action('Product', 'Select Size', `${stock.size.code}`);
   }
 
   increaseQuantity() {
-    actions.product.UpQuantity();
+    this.props.product.UpQuantity();
     ga.action('Product', 'Increase', '');
   }
 
   decreaseQuantity() {
-    actions.product.DownQuantity();
+    this.props.product.DownQuantity();
     ga.action('Product', 'Decrease', '');
   }
 
   addToBag() {
     ga.action('Product', 'Add to cart', '');
-    let state = store.getState();
-    let order = state.order.data;
+    let order = this.props.order.toJS().data;
     if (order.status === 'shipping' || order.status === 'done') {
       swal({
         title: 'คุณต้องการเริ่มการสั่งสินค้าใหม่ใช่มัย?',
@@ -65,7 +62,8 @@ export default class ProductDetail extends ReducerBase {
         swal('เริ่มใหม่อีกครั้ง!', '', 'success');
       });
     } else {
-      let detail = state.product.detail;
+      let proStore = this.props.product.toJS();
+      let detail = proStore.detail;
       if (detail.color === undefined) {
         swal({
           title: 'เลือกสีสินค้าก่อนนะค่ะ',
@@ -87,7 +85,7 @@ export default class ProductDetail extends ReducerBase {
       }
 
       if (detail.size) {
-        let productId = state.product.data._id;
+        let productId = proStore.data._id;
         let colorId = detail.color._id;
         let sizeId = detail.size._id;
         let check = order.list.find(item => {
@@ -107,7 +105,7 @@ export default class ProductDetail extends ReducerBase {
           if (detail.image_list.length > 0) {
             img = detail.image_list[0];
           }
-          actions.order.addToBag(state.product.data,
+          this.props.order.addToBag(proStore.data,
             img,
             detail.color,
             detail.size,
@@ -119,8 +117,7 @@ export default class ProductDetail extends ReducerBase {
   }
 
   render() {
-    let state = store.getState();
-    let doc = state.page.product.data;
+    let doc = this.props.page.toJS().product.data;
     let css = {
       color: doc.css.color,
       backgroundColor: doc.css.bg_color,
@@ -137,8 +134,9 @@ export default class ProductDetail extends ReducerBase {
 
     let cssOutStock = {color: '#B90303'};
 
-    let product = state.product.data;
-    let detail = state.product.detail;
+    let proStore = this.props.product.toJS();
+    let product = proStore.data;
+    let detail = proStore.detail;
     this.product = product;
     this.detail = detail;
     let colorDiv = (<p style={cssOutStock}>สินค้าหมดค่ะ</p>);
@@ -276,3 +274,5 @@ export default class ProductDetail extends ReducerBase {
     );
   }
 }
+
+export default inject('product', 'order', 'page')(observer(ProductDetail));

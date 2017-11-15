@@ -1,23 +1,20 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
 import swal from 'sweetalert';
+import {observer, inject} from 'mobx-react';
 
-import {store} from '../../store';
-import {manager} from '../../utility/Manager';
 import {ga} from '../../utility/ga';
 
-import {ReducerBase} from '../ReducerBase';
 import OrderMenu from './OrderMenu';
 import OrderPanel from './OrderPanel';
 
-export default class CheckoutOrder extends ReducerBase {
+export class CheckoutOrder extends React.Component {
   componentDidMount() {
     ga.view();
-    manager.SetOnTop();
   }
 
   checkoutByGuest() {
-    let data = store.getState().order.data;
+    let data = this.props.order.toJS().data;
     if (data.list.length === 0) {
       swal({
         title: 'รายการสินค้า',
@@ -33,8 +30,7 @@ export default class CheckoutOrder extends ReducerBase {
   }
 
   render() {
-    let state = store.getState();
-    let order = state.order.data;
+    let order = this.props.order.toJS().data;
     return (
     <div className="container summary-form">
       <div className="row">
@@ -55,3 +51,5 @@ export default class CheckoutOrder extends ReducerBase {
     );
   }
 }
+
+export default inject('order')(observer(CheckoutOrder));

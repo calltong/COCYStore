@@ -1,19 +1,17 @@
 import React from 'react';
+import {observer, inject} from 'mobx-react';
 import ReactHtmlParser from 'react-html-parser';
 
-import {ReducerBase} from '../ReducerBase';
-import {store} from '../../store';
-import {actions} from '../../actions/Action';
 import {ga} from '../../utility/ga';
 
-export default class AboutUs extends ReducerBase {
+export class AboutUs extends React.Component {
   componentDidMount() {
-    actions.page.getAboutus();
+    this.props.page.getAboutus();
     ga.view();
   }
 
   render() {
-    let doc = store.getState().page.about_us;
+    let doc = this.props.page.toJS().about_us;
     let list = doc.data.list.map((item, index) => {
       return (
       <div key={index + 10}>
@@ -46,3 +44,5 @@ export default class AboutUs extends ReducerBase {
     );
   }
 }
+
+export default inject('page')(observer(AboutUs));
